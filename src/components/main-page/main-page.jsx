@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export const MainPage = () => {
+export const MainPage = (props) => {
+  const {places} = props;
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -120,7 +122,7 @@ export const MainPage = () => {
                       </div>
                     </div>
                     <h2 className="place-card__name">
-                      <a href="#">Beautiful &amp; luxurious apartment at great location</a>
+                      <a href="#">{places[0].name}</a>
                     </h2>
                     <p className="place-card__type">Apartment</p>
                   </div>
@@ -152,7 +154,7 @@ export const MainPage = () => {
                       </div>
                     </div>
                     <h2 className="place-card__name">
-                      <a href="#">Wood and stone place</a>
+                      <a href="#">{places[1].name}</a>
                     </h2>
                     <p className="place-card__type">Private room</p>
                   </div>
@@ -184,7 +186,7 @@ export const MainPage = () => {
                       </div>
                     </div>
                     <h2 className="place-card__name">
-                      <a href="#">Canal View Prinsengracht</a>
+                      <a href="#">{places[2].name}</a>
                     </h2>
                     <p className="place-card__type">Apartment</p>
                   </div>
@@ -219,7 +221,7 @@ export const MainPage = () => {
                       </div>
                     </div>
                     <h2 className="place-card__name">
-                      <a href="#">Nice, cozy, warm big bed apartment</a>
+                      <a href="#">{places[3].name}</a>
                     </h2>
                     <p className="place-card__type">Apartment</p>
                   </div>
@@ -251,7 +253,7 @@ export const MainPage = () => {
                       </div>
                     </div>
                     <h2 className="place-card__name">
-                      <a href="#">Wood and stone place</a>
+                      <a href="#">{places[4].name}</a>
                     </h2>
                     <p className="place-card__type">Private room</p>
                   </div>
@@ -266,4 +268,11 @@ export const MainPage = () => {
       </main >
     </div >
   );
+};
+
+MainPage.propTypes = {
+  places: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+  })).isRequired,
 };
