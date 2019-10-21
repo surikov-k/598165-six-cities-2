@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export const MainPage = (props) => {
-  const {places} = props;
+  const {places, onHeaderClick} = props;
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -122,7 +122,7 @@ export const MainPage = (props) => {
                       </div>
                     </div>
                     <h2 className="place-card__name">
-                      <a href="#">{places[0].name}</a>
+                      <a href="#" onClick={onHeaderClick}>{places[0].name}</a>
                     </h2>
                     <p className="place-card__type">Apartment</p>
                   </div>
@@ -154,7 +154,7 @@ export const MainPage = (props) => {
                       </div>
                     </div>
                     <h2 className="place-card__name">
-                      <a href="#">{places[1].name}</a>
+                      <a href="#" onClick={onHeaderClick}>{places[1].name}</a>
                     </h2>
                     <p className="place-card__type">Private room</p>
                   </div>
@@ -186,7 +186,7 @@ export const MainPage = (props) => {
                       </div>
                     </div>
                     <h2 className="place-card__name">
-                      <a href="#">{places[2].name}</a>
+                      <a href="#" onClick={onHeaderClick}>{places[2].name}</a>
                     </h2>
                     <p className="place-card__type">Apartment</p>
                   </div>
@@ -221,7 +221,7 @@ export const MainPage = (props) => {
                       </div>
                     </div>
                     <h2 className="place-card__name">
-                      <a href="#">{places[3].name}</a>
+                      <a href="#" onClick={onHeaderClick}>{places[3].name}</a>
                     </h2>
                     <p className="place-card__type">Apartment</p>
                   </div>
@@ -253,7 +253,7 @@ export const MainPage = (props) => {
                       </div>
                     </div>
                     <h2 className="place-card__name">
-                      <a href="#">{places[4].name}</a>
+                      <a href="#" onClick={onHeaderClick}>{places[4].name}</a>
                     </h2>
                     <p className="place-card__type">Private room</p>
                   </div>
@@ -275,4 +275,5 @@ MainPage.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
   })).isRequired,
+  onHeaderClick: PropTypes.func.isRequired,
 };

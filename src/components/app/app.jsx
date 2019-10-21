@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 import {MainPage} from '../main-page/main-page.jsx';
 
 export const App = (props) => {
-  const {places} = props;
+  const {places, onHeaderClick} = props;
   return (
     <MainPage
       places={places}
+      onHeaderClick={onHeaderClick}
     />
   );
 };
@@ -17,4 +18,5 @@ App.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
   })).isRequired,
+  onHeaderClick: PropTypes.func.isRequired,
 };

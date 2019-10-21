@@ -10,6 +10,7 @@ const init = () => {
   ReactDOM.render(
       <App
         places={places}
+        onHeaderClick={() => {}}
       />,
       document.querySelector(`#root`)
   );
