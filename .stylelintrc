@@ -1,3 +1,7 @@
 {
-  "extends": "stylelint-config-htmlacademy"
+  "extends": "stylelint-config-htmlacademy",
+  "ignoreFiles": [
+    "**/*.js",
+    "**/*.jsx"
+  ]
 }
