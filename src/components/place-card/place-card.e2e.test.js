@@ -26,7 +26,6 @@ describe(`<PlaceCard/>`, () => {
       onHeaderClick={() => {}}
       onMouseOver={mouseOverHandler}
     />);
-    // const card = component.find(`.place-card`);
     component.simulate(`mouseover`);
     expect(mouseOverHandler).toHaveBeenCalledWith(0);
   });
