@@ -1,16 +1,28 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 
 import {MainPage} from '../main-page/main-page.jsx';
+import PropertyDetails from '../property-details/property-details.jsx';
+
+const getPageScreen = (places) => {
+  switch (location.pathname) {
+    case `/`:
+      return <MainPage
+        places={places}
+        onHeaderClick={() => {}}
+      />;
+    case `/details`:
+      return <PropertyDetails
+        place={places[0]}
+      />;
+  }
+  return null;
+};
 
 export const App = (props) => {
-  const {places} = props;
-  return (
-    <MainPage
-      places={places}
-      onHeaderClick={() => {}}
-    />
-  );
+  return <Fragment>
+    {getPageScreen(props.places)}
+  </Fragment>;
 };
 
 App.propTypes = {
