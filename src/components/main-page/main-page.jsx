@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import PlacesList from '../places-list/places-list.jsx';
+import Map from '../map/map.jsx';
 
 export const MainPage = (props) => {
-  const {places, onHeaderClick} = props;
+  const {leaflet, places, onHeaderClick} = props;
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -100,7 +101,12 @@ export const MainPage = (props) => {
               />
             </section >
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map
+                  leaflet={leaflet}
+                  places={places}
+                />
+              </section>
             </div>
           </div >
         </div >
@@ -115,4 +121,5 @@ MainPage.propTypes = {
     name: PropTypes.string.isRequired,
   })).isRequired,
   onHeaderClick: PropTypes.func.isRequired,
+  leaflet: PropTypes.object.isRequired,
 };

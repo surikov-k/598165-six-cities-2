@@ -2,6 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 
 import {MainPage} from './main-page.jsx';
+import mockLeaflet from '../../mocks/mock-leaflet';
 
 const places = [
   {
@@ -59,11 +60,11 @@ const places = [
 describe(`<MainPage/>`, () => {
   it(`renderes correctly`, () => {
     const component = renderer
-      .create(
-          <MainPage
-            places={places}
-            onHeaderClick={() => {}}
-          />)
+      .create(<MainPage
+        places={places}
+        onHeaderClick={() => {}}
+        leaflet={mockLeaflet}
+      />)
       .toJSON();
 
     expect(component).toMatchSnapshot();

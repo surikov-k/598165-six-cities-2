@@ -2,12 +2,14 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 
 import {App} from './app.jsx';
+import mockLeaflet from '../../mocks/mock-leaflet';
 
 const places = [
   {
     id: 0,
     img: ``,
     name: ``,
+    coords: [0, 0],
     price: 0,
     rating: 0,
     type: ``,
@@ -18,6 +20,7 @@ const places = [
     id: 1,
     img: ``,
     name: ``,
+    coords: [0, 0],
     price: 0,
     rating: 0,
     type: ``,
@@ -28,6 +31,7 @@ const places = [
     id: 2,
     img: ``,
     name: ``,
+    coords: [0, 0],
     price: 0,
     rating: 0,
     type: ``,
@@ -38,6 +42,7 @@ const places = [
     id: 3,
     img: ``,
     name: ``,
+    coords: [0, 0],
     price: 0,
     rating: 0,
     type: ``,
@@ -48,6 +53,7 @@ const places = [
     id: 4,
     img: ``,
     name: ``,
+    coords: [0, 0],
     price: 0,
     rating: 0,
     type: ``,
@@ -56,14 +62,18 @@ const places = [
   },
 ];
 
+const div = global.document.createElement(`div`);
+div.setAttribute(`id`, `map`);
+global.document.body.appendChild(div);
+
 describe(`<App/>`, () => {
   it(`renders correctly`, () => {
     const component = renderer
-      .create(
-          <App
-            places={places}
-            onHeaderClick={() => {}}
-          />
+      .create(<App
+        places={places}
+        onHeaderClick={() => {}}
+        leaflet={mockLeaflet}
+      />
       )
       .toJSON();
 
