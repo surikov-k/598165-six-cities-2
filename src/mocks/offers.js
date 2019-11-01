@@ -12,14 +12,14 @@ const shuffleArray = (array) => {
   return result;
 };
 
-const placeCardNames = [
+const propertyNames = [
   `Beautiful & luxurious apartment at great location`,
   `Wood and stone place`,
   `Canal View Prinsengracht`,
   `Nice, cozy, warm big bed apartment`,
 ];
 
-const placeTypes = [
+const propertyTypes = [
   `Apartment`, `Private Room`, `House`, `Hotel`,
 ];
 
@@ -27,7 +27,7 @@ const propertyImages = [
   `img/apartment-01.jpg`,
   `img/apartment-03.jpg`,
   `img/room.jpg`,
-  `img/studio-01.jpg`,
+  // `img/studio-01.jpg`,
   `img/apartment-02.jpg`,
 ];
 
@@ -49,6 +49,13 @@ const propertyText = [
   `Eveniet sapiente neque nemo ipsa similique beatae cupiditate?`,
   `Odit in, maxime harum rem, vitae recusandae a veritatis amet error laudantium facilis culpa, possimus cum perspiciatis esse voluptas aliquam ad delectus quaerat repellendus provident.`,
   `Eum sequi et assumenda ex, iure laudantium id obcaecati harum? Ad assumenda ullam est asperiores non debitis ipsum eos?`,
+];
+
+const propertyCoordinates = [
+  [52.3909553943508, 4.85309666406198],
+  [52.369553943508, 4.85309666406198],
+  [52.3909553943508, 4.929309666406198],
+  [52.3809553943508, 4.939309666406198],
 ];
 
 const hostAvatars = [
@@ -76,10 +83,11 @@ export const getPlaces = (amount) => {
         set img(url) {
           return url;
         },
-        name: getRandomFromArray(placeCardNames),
+        name: getRandomFromArray(propertyNames),
+        coords: propertyCoordinates[i],
         price: Math.round(Math.random() * 120 + 80),
         rating: parseFloat((Math.random() * 5).toFixed(1)),
-        type: getRandomFromArray(placeTypes),
+        type: getRandomFromArray(propertyTypes),
         bedrooms: Math.floor(1 + Math.random() * 4),
         guests: Math.floor(1 + Math.random() * 9),
         hostAvatar: getRandomFromArray(hostAvatars),

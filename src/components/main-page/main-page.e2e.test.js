@@ -3,6 +3,8 @@ import Enzyme, {mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import {MainPage} from "./main-page.jsx";
+import mockLeaflet from '../../mocks/mock-leaflet';
+
 
 Enzyme.configure({adapter: new Adapter()});
 
@@ -59,6 +61,7 @@ const places = [
   },
 ];
 
+
 describe(`<MainPage/>`, () => {
   it(`fires onClick callback after click on each place card header`, () => {
     const onClick = jest.fn();
@@ -66,6 +69,7 @@ describe(`<MainPage/>`, () => {
         <MainPage
           places={places}
           onHeaderClick={onClick}
+          leaflet={mockLeaflet}
         />
     );
     const links = component.find(`.place-card__name a`);
