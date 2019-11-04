@@ -5,7 +5,7 @@ import leaflet from 'leaflet';
 import {MainPage} from '../main-page/main-page.jsx';
 import PropertyDetails from '../property-details/property-details.jsx';
 
-const getPageScreen = (places) => {
+const getPageScreen = ({places, reviews}) => {
   switch (location.pathname) {
     case `/`:
       return <MainPage
@@ -15,7 +15,10 @@ const getPageScreen = (places) => {
       />;
     case `/details`:
       return <PropertyDetails
-        place={places[0]}
+        placeId={0}
+        places={places}
+        reviews={reviews}
+        leaflet={leaflet}
       />;
   }
   return null;
@@ -23,7 +26,7 @@ const getPageScreen = (places) => {
 
 export const App = (props) => {
   return <Fragment>
-    {getPageScreen(props.places)}
+    {getPageScreen(props)}
   </Fragment>;
 };
 
@@ -32,4 +35,12 @@ App.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
   })).isRequired,
+};
+
+getPageScreen.propTypes = {
+  places: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+  })).isRequired,
+  reviews: PropTypes.array.isRequired,
 };

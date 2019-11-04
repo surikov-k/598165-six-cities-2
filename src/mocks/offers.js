@@ -1,3 +1,5 @@
+const A_YEAR_FROM_NOW = new Date(Date.now() - 365 * 24 * 60 * 60 * 1000);
+
 const getRandomFromArray = (array) => {
   const idx = Math.round(Math.random() * (array.length - 1));
   return array[idx];
@@ -10,6 +12,12 @@ const shuffleArray = (array) => {
     [result[i], result[j]] = [result[j], result[i]];
   }
   return result;
+};
+
+const getRandomDate = (inception) => {
+  const start = new Date(inception);
+  const current = new Date();
+  return new Date(Math.round(Math.random() * (current.getTime() - start.getTime()) + start.getTime()));
 };
 
 const propertyNames = [
@@ -68,6 +76,21 @@ const hostNames = [
   `Max`,
 ];
 
+const users = [
+  {
+    id: 0,
+    name: `Angelina`,
+    isPro: true,
+    avatarUrl: `img/avatar-angelina.jpg`,
+  },
+  {
+    id: 1,
+    name: `Max`,
+    isPro: true,
+    avatarUrl: `img/avatar-max.jpg`,
+  },
+];
+
 export const getPlaces = (amount) => {
   return new Array(amount)
     .fill(null)
@@ -102,3 +125,25 @@ export const getPlaces = (amount) => {
       };
     });
 };
+
+export const getReviews = () => {
+  return new Array(Math.round(Math.random() * 15))
+    .fill(null)
+    .map(() => Object.assign({}))
+    .map((review, i) => {
+      const randomUser = getRandomFromArray(users);
+      return {
+        id: i,
+        rating: parseFloat((Math.random() * 5).toFixed(1)),
+        comment: getRandomFromArray(propertyText),
+        date: new Date(getRandomDate(A_YEAR_FROM_NOW)).getTime(),
+        userId: randomUser.id,
+        isUserPro: randomUser.isPro,
+        userName: randomUser.name,
+        userAvatar: randomUser.avatarUrl,
+
+      };
+    });
+};
+
+
