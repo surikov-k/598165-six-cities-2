@@ -13,7 +13,7 @@ export default class Map extends PureComponent {
     return <div
       id="map"
       ref={this._mapRef.current}
-      style={{height: 823 + `px`}}>
+      style={{height: `inherit`}}>
     </div>;
   }
 
