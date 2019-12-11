@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import {MainPage} from './main-page.jsx';
+import MainPage from './main-page.jsx';
 import mockLeaflet from '../../mocks/mock-leaflet';
 
 const places = [
@@ -62,6 +62,10 @@ describe(`<MainPage/>`, () => {
     const component = renderer
       .create(<MainPage
         places={places}
+        currentCity=""
+        cities={[]}
+        onChangeCity={() => {}}
+        getPlaces={() => {}}
         onHeaderClick={() => {}}
         leaflet={mockLeaflet}
       />)

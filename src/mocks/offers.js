@@ -20,6 +20,33 @@ const getRandomDate = (inception) => {
   return new Date(Math.round(Math.random() * (current.getTime() - start.getTime()) + start.getTime()));
 };
 
+export const cities = [
+  {
+    name: `Paris`,
+    coords: [0, 0],
+  },
+  {
+    name: `Cologne`,
+    coords: [0, 0],
+  },
+  {
+    name: `Brussels`,
+    coords: [0, 0],
+  },
+  {
+    name: `Amsterdam`,
+    coords: [0, 0],
+  },
+  {
+    name: `Hamburg`,
+    coords: [0, 0],
+  },
+  {
+    name: `Dusseldorf`,
+    coords: [0, 0],
+  },
+];
+
 const propertyNames = [
   `Beautiful & luxurious apartment at great location`,
   `Wood and stone place`,
@@ -98,6 +125,8 @@ export const getPlaces = (amount) => {
     .map((place, i) => {
       return {
         id: i,
+        cityName: getRandomFromArray(cities).name,
+        cityCoords: [0, 0],
         images: shuffleArray(propertyImages)
           .slice(Math.floor(1 + Math.random() * (propertyImages.length - 1))),
         get img() {
@@ -107,7 +136,7 @@ export const getPlaces = (amount) => {
           return url;
         },
         name: getRandomFromArray(propertyNames),
-        coords: propertyCoordinates[i],
+        coords: getRandomFromArray(propertyCoordinates),
         price: Math.round(Math.random() * 120 + 80),
         rating: parseFloat((Math.random() * 5).toFixed(1)),
         type: getRandomFromArray(propertyTypes),
@@ -144,6 +173,11 @@ export const getReviews = () => {
 
       };
     });
+};
+
+export const getCitiesList = (places) => {
+  const list = places.map((place) => place.cityName);
+  return [...new Set(list)];
 };
 
 

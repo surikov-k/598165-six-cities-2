@@ -2,7 +2,7 @@ import React from 'react';
 import Enzyme, {mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import {MainPage} from "./main-page.jsx";
+import MainPage from "./main-page.jsx";
 import mockLeaflet from '../../mocks/mock-leaflet';
 
 
@@ -68,6 +68,10 @@ describe(`<MainPage/>`, () => {
     const component = mount(
         <MainPage
           places={places}
+          currentCity=""
+          cities={[]}
+          onChangeCity={() => {}}
+          getPlaces={() => {}}
           onHeaderClick={onClick}
           leaflet={mockLeaflet}
         />
@@ -78,6 +82,6 @@ describe(`<MainPage/>`, () => {
       link.simulate(`click`);
     });
 
-    expect(onClick).toHaveBeenCalledTimes(5);
+    expect(onClick).toHaveBeenCalledTimes(4);
   });
 });
