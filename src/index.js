@@ -1,19 +1,17 @@
 import React from 'react';
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
 import ReactDOM from 'react-dom';
 
-import {App} from './components/app/app.jsx';
-import {getPlaces, getReviews} from './mocks/offers';
+import App from './components/app/app.jsx';
+import {reducer} from './reducer';
 
-const places = getPlaces(4);
-const reviews = getReviews();
+const store = createStore(reducer);
 
 const init = () => {
-  ReactDOM.render(
-      <App
-        places={places}
-        reviews={reviews}
-      />,
-      document.querySelector(`#root`)
+  ReactDOM.render(<Provider store={store}>
+    <App/>
+  </Provider>, document.querySelector(`#root`)
   );
 };
 

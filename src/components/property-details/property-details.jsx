@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import PropertyReviews from '../property-reviews/property-reviews.jsx';
 import Map from '../map/map.jsx';
 import PlacesList from '../places-list/places-list.jsx';
+import {connect} from 'react-redux';
 
 const NEAR_PLACES_TO_DISPLAY = 3;
 
@@ -197,4 +198,12 @@ PropertyDetails.propTypes = {
   leaflet: PropTypes.object.isRequired,
 };
 
-export default PropertyDetails;
+const mapStateToProps = (state, ownProps) => {
+  return Object.assign({}, ownProps, {
+    places: state.places,
+    reviews: state.reviews,
+  });
+};
+
+export {PropertyDetails};
+export default connect(mapStateToProps)(PropertyDetails);

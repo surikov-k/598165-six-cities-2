@@ -71,6 +71,10 @@ describe(`<App/>`, () => {
   it(`renders correctly`, () => {
     const component = renderer
       .create(<App
+        currentCity={``}
+        cities={[]}
+        changeCity={() => {}}
+        getPlaces={() => {}}
         places={places}
         onHeaderClick={() => {}}
         leaflet={mockLeaflet}

@@ -1,12 +1,14 @@
 import React, {PureComponent, createRef} from 'react';
+// import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-export default class Map extends PureComponent {
+class Map extends PureComponent {
   constructor(props) {
     super(props);
     this._mapRef = createRef();
     this._city = [52.38333, 4.9];
     this._zoom = 12;
+    this._markers = [];
   }
 
   render() {
@@ -18,13 +20,18 @@ export default class Map extends PureComponent {
   }
 
   componentDidMount() {
-    const {places, leaflet} = this.props;
+    // const leaflet = this.props.leaflet;
+    const places = this.props.places.slice(0, 4);
     this._mapInit();
-    places.forEach((place) => {
-      leaflet
-        .marker(place.coords, this._icon)
-        .addTo(this._map);
-    });
+    this._renderMarkers(places);
+
+  }
+
+  componentDidUpdate() {
+    const places = this.props.places.slice(0, 4);
+    this._markers.forEach((marker) => this._map.removeLayer(marker));
+    this._markers = [];
+    this._renderMarkers(places);
   }
 
   _mapInit() {
@@ -51,6 +58,15 @@ export default class Map extends PureComponent {
     this._map.setView(this._city, this._zoom);
   }
 
+  _renderMarkers(places) {
+    const leaflet = this.props.leaflet;
+    places.forEach((place) => {
+      const marker = leaflet
+        .marker(place.coords, this._icon)
+        .addTo(this._map);
+      this._markers.push(marker);
+    });
+  }
 
 }
 
@@ -73,3 +89,12 @@ Map.propTypes = {
   })).isRequired,
   leaflet: PropTypes.object.isRequired,
 };
+
+// const mapStateToProps = (state, ownProps) => {
+//   return Object.assign({}, ownProps, {
+//     places: state.places,
+//   });
+// };
+
+export default Map;
+// export default connect(mapStateToProps)(Map);

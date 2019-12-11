@@ -1,12 +1,11 @@
-import React, {PureComponent, Fragment} from 'react';
+import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card.jsx';
 
-export default class PlacesList extends PureComponent {
+class PlacesList extends Component {
 
   constructor(props) {
     super(props);
-    this.places = props.places;
     this.onHeaderClick = props.onHeaderClick;
 
     this.state = {
@@ -15,9 +14,10 @@ export default class PlacesList extends PureComponent {
   }
 
   render() {
+    const places = this.props.places.slice(0, 4);
     return (
       <Fragment>
-        {this.places.map((place) => {
+        {places.map((place) => {
           return <PlaceCard
             key={place.id}
             place={place}
@@ -45,4 +45,6 @@ PlacesList.propTypes = {
   })).isRequired,
   onHeaderClick: PropTypes.func.isRequired,
 };
+
+export default PlacesList;
 

@@ -5,6 +5,7 @@ import PropertyReviews from './property-reviews.jsx';
 
 const reviews = [
   {
+    id: 0,
     rating: 0,
     comment: ``,
     date: 0,
@@ -12,6 +13,7 @@ const reviews = [
     userAvatar: ``,
   },
   {
+    id: 1,
     rating: 0,
     comment: ``,
     date: 0,
