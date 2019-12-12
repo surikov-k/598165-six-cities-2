@@ -21,7 +21,7 @@ describe(`<PlaceCard/>`, () => {
       .create(<PlaceCard
         place={place}
         onHeaderClick={() => {}}
-        onMouseOver={() => {}}
+        onActivatePlace={() => {}}
       />)
       .toJSON();
 

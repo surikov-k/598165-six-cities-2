@@ -34,7 +34,7 @@ describe(`<PlacesList/>`, () => {
     const component = renderer
       .create(<PlacesList
         places={places}
-        onMouseOver={mouseOverHandler}
+        onActivatePlace={mouseOverHandler}
         onHeaderClick={headerClickHandler}
       />)
       .toJSON();

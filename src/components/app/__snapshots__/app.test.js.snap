@@ -103,14 +103,20 @@ exports[`<App/> renders correctly 1`] = `
           >
             <span
               className="places__sorting-caption"
+              style={
+                Object {
+                  "marginRight": "10px",
+                }
+              }
             >
               Sort by
             </span>
             <span
-              className="places__sorting-type"
+              className="places__sorting-type "
+              onClick={[Function]}
               tabIndex="0"
             >
-              Popular
+              
               <svg
                 className="places__sorting-arrow"
                 height="4"
@@ -122,69 +128,44 @@ exports[`<App/> renders correctly 1`] = `
               </svg>
             </span>
             <ul
-              className="places__options places__options--custom places__options--opened"
+              className="places__options places__options--custom "
             >
               <li
                 className="places__option places__option--active"
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Popular
               </li>
               <li
-                className="places__option"
+                className="places__option places__option--active"
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Price: low to high
               </li>
               <li
-                className="places__option"
+                className="places__option places__option--active"
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Price: high to low
               </li>
               <li
-                className="places__option"
+                className="places__option places__option--active"
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Top rated first
               </li>
             </ul>
-            <select
-              className="places__sorting-type"
-              id="places-sorting"
-            >
-              <option
-                className="places__option"
-                defaultValue=""
-                value="popular"
-              >
-                Popular
-              </option>
-              <option
-                className="places__option"
-                value="to-high"
-              >
-                Price: low to high
-              </option>
-              <option
-                className="places__option"
-                value="to-low"
-              >
-                Price: high to low
-              </option>
-              <option
-                className="places__option"
-                value="top-rated"
-              >
-                Top rated first
-              </option>
-            </select>
           </form>
           <div
             className="cities__places-list places__list tabs__content"
           >
             <article
               className="cities__place-card place-card"
+              onMouseLeave={[Function]}
               onMouseOver={[Function]}
             >
               <div
@@ -284,6 +265,7 @@ exports[`<App/> renders correctly 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
+              onMouseLeave={[Function]}
               onMouseOver={[Function]}
             >
               <div
@@ -383,6 +365,7 @@ exports[`<App/> renders correctly 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
+              onMouseLeave={[Function]}
               onMouseOver={[Function]}
             >
               <div
@@ -482,6 +465,7 @@ exports[`<App/> renders correctly 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
+              onMouseLeave={[Function]}
               onMouseOver={[Function]}
             >
               <div

@@ -24,7 +24,7 @@ describe(`<PlaceCard/>`, () => {
     const component = shallow(<PlaceCard
       place={place}
       onHeaderClick={() => {}}
-      onMouseOver={mouseOverHandler}
+      onActivatePlace={mouseOverHandler}
     />);
     component.simulate(`mouseover`);
     expect(mouseOverHandler).toHaveBeenCalledWith(0);

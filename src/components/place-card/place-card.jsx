@@ -4,16 +4,20 @@ import PropTypes from 'prop-types';
 const PlaceCard = (props) => {
   const {
     place,
-    onMouseOver,
     onHeaderClick,
+    onActivatePlace,
   } = props;
 
   return (
     <article
       className="cities__place-card place-card"
       onMouseOver={() => {
-        onMouseOver(place.id);
-      }} >
+        onActivatePlace(place.id);
+      }}
+      onMouseLeave={() => {
+        onActivatePlace(null);
+      }}
+    >
       {
         place.isPremium
           ?
@@ -71,7 +75,7 @@ PlaceCard.propTypes = {
     isBookmarked: PropTypes.bool.isRequired,
   }).isRequired,
   onHeaderClick: PropTypes.func.isRequired,
-  onMouseOver: PropTypes.func.isRequired,
+  onActivatePlace: PropTypes.func.isRequired,
 };
 
 export default PlaceCard;

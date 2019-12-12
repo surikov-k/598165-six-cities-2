@@ -8,6 +8,14 @@ class Map extends PureComponent {
     this._mapRef = createRef();
     this._city = [52.38333, 4.9];
     this._zoom = 12;
+    this._icon = this.props.leaflet.icon({
+      iconUrl: `img/pin.svg`,
+      iconSize: [30, 30],
+    });
+    this._activeIcon = this.props.leaflet.icon({
+      iconUrl: `img/pin-active.svg`,
+      iconSize: [40, 40],
+    });
     this._markers = [];
   }
 
@@ -20,7 +28,6 @@ class Map extends PureComponent {
   }
 
   componentDidMount() {
-    // const leaflet = this.props.leaflet;
     const places = this.props.places.slice(0, 4);
     this._mapInit();
     this._renderMarkers(places);
@@ -36,11 +43,6 @@ class Map extends PureComponent {
 
   _mapInit() {
     const {leaflet} = this.props;
-
-    this._icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
-      iconSize: [30, 30],
-    });
 
     this._map = leaflet.map(`map`, {
       center: this._city,
@@ -62,7 +64,11 @@ class Map extends PureComponent {
     const leaflet = this.props.leaflet;
     places.forEach((place) => {
       const marker = leaflet
-        .marker(place.coords, this._icon)
+        .marker(place.coords, {
+          icon: place.id === this.props.activePlaceId
+            ? this._activeIcon
+            : this._icon
+        })
         .addTo(this._map);
       this._markers.push(marker);
     });
@@ -88,13 +94,7 @@ Map.propTypes = {
     isBookmarked: PropTypes.bool,
   })).isRequired,
   leaflet: PropTypes.object.isRequired,
+  activePlaceId: PropTypes.number,
 };
 
-// const mapStateToProps = (state, ownProps) => {
-//   return Object.assign({}, ownProps, {
-//     places: state.places,
-//   });
-// };
-
 export default Map;
-// export default connect(mapStateToProps)(Map);
