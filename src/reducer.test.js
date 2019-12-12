@@ -2,59 +2,44 @@ import {
   reducer,
   ActionCreator,
   ActionType,
-  cities,
-  allPlaces,
-  allReviews,
   getPlacesFor,
+  setSorting,
+  initialState,
 } from './reducer';
+
+// import {sortingOptions} from './components/constants';
 
 describe(`reducer`, () => {
   it(`returns the initial state`, () => {
     expect(reducer(undefined, {}
-    )).toEqual({
-      cities,
-      places: allPlaces,
-      reviews: allReviews,
-      currentCity: cities[0],
-      activeOffer: null,
-    }
-    );
+    )).toEqual(initialState);
   });
 
   it(`changes a current city`, () => {
-    expect(reducer({
-      cities,
-      places: allPlaces,
-      reviews: allReviews,
-      currentCity: ``
-    }, {
+    expect(reducer(initialState, {
       type: ActionType.CHANGE_CITY,
-      payload: `Amsterdam`
+      payload: `SomeCityName`
     }
-    )).toEqual({
-      cities,
-      places: allPlaces,
-      reviews: allReviews,
-      currentCity: `Amsterdam`
-    });
+    )).toEqual(Object.assign({}, initialState, {currentCity: `SomeCityName`}));
   });
 
-  it(`filters the places list for a given city`, () => {
-    expect(reducer({
-      cities,
-      places: allPlaces,
-      reviews: allReviews,
-      currentCity: ``
-    }, {
+  it(`filters a places list for a given city`, () => {
+    expect(reducer(initialState, {
       type: ActionType.GET_PLACES,
       payload: [{}, {}]
     }
-    )).toEqual({
-      cities,
-      places: [{}, {}],
-      reviews: allReviews,
-      currentCity: ``
-    });
+    )).toEqual(Object.assign({}, initialState, {places: [{}, {}]}));
+  });
+
+  it(`changes sorting order`, () => {
+    expect(reducer(initialState, {
+      type: ActionType.SET_SORTING,
+      payload: setSorting(`Price: low to high`, `Amsterdam`)
+    }
+    )).toEqual(Object.assign({}, initialState, {
+      sortingOrder: `Price: low to high`,
+      places: setSorting(`Price: low to high`, `Amsterdam`).places
+    }));
   });
 });
 
@@ -73,6 +58,14 @@ describe(`ActionCreator`, () => {
       .toEqual({
         type: ActionType.GET_PLACES,
         payload: getPlacesFor(`Amsterdam`)
+      });
+  });
+
+  it(`creates an expected action for sorting places with a given creterion `, () => {
+    expect(ActionCreator.setSorting(`Popular`, `Amsterdam`))
+      .toEqual({
+        type: ActionType.SET_SORTING,
+        payload: setSorting(`Popular`, `Amsterdam`)
       });
   });
 });

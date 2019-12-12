@@ -1,36 +1,22 @@
-import React, {Component, Fragment} from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card.jsx';
 
-class PlacesList extends Component {
-
-  constructor(props) {
-    super(props);
-    this.onHeaderClick = props.onHeaderClick;
-
-    this.state = {
-      activeCard: null
-    };
-  }
-
-  render() {
-    const places = this.props.places.slice(0, 4);
-    return (
-      <Fragment>
-        {places.map((place) => {
-          return <PlaceCard
-            key={place.id}
-            place={place}
-            onMouseOver={(id) => {
-              this.setState(() => ({activeCard: id}));
-            }}
-            onHeaderClick={this.onHeaderClick}
-          />;
-        })}
-      </Fragment>
-    );
-  }
-}
+const PlacesList = (props) => {
+  const places = props.places.slice(0, 4);
+  return (
+    <Fragment>
+      {places.map((place) => {
+        return <PlaceCard
+          key={place.id}
+          place={place}
+          onActivatePlace={props.onActivatePlace}
+          onHeaderClick={props.onHeaderClick}
+        />;
+      })}
+    </Fragment>
+  );
+};
 
 PlacesList.propTypes = {
   places: PropTypes.arrayOf(PropTypes.shape({
@@ -44,6 +30,7 @@ PlacesList.propTypes = {
     isBookmarked: PropTypes.bool.isRequired,
   })).isRequired,
   onHeaderClick: PropTypes.func.isRequired,
+  onActivatePlace: PropTypes.func,
 };
 
 export default PlacesList;

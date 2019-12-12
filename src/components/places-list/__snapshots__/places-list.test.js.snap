@@ -4,6 +4,7 @@ exports[`<PlacesList/> renders correctly 1`] = `
 Array [
   <article
     className="cities__place-card place-card"
+    onMouseLeave={[Function]}
     onMouseOver={[Function]}
   >
     <div
@@ -103,6 +104,7 @@ Array [
   </article>,
   <article
     className="cities__place-card place-card"
+    onMouseLeave={[Function]}
     onMouseOver={[Function]}
   >
     <div

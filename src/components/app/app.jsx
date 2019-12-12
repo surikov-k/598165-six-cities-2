@@ -8,16 +8,19 @@ import MainPage from '../main-page/main-page.jsx';
 import PropertyDetails from '../property-details/property-details.jsx';
 import {ActionCreator} from '../../reducer.js';
 
-const getPageScreen = ({places, currentCity, cities, changeCity, getPlaces}) => {
+const getPageScreen = ({places, currentCity, cities, sortingOrder, changeCity, getPlaces, setSorting}) => {
   switch (location.pathname) {
     case `/`:
       return <MainPage
         places={places}
         cities={cities}
         currentCity={currentCity}
+        sortingOrder={sortingOrder}
+        setSorting={setSorting}
         onChangeCity={(city) => {
           changeCity(city);
           getPlaces(city);
+          setSorting(sortingOrder, city);
         }}
         onHeaderClick={() => {}}
         leaflet={leaflet}
@@ -26,6 +29,7 @@ const getPageScreen = ({places, currentCity, cities, changeCity, getPlaces}) => 
       return <PropertyDetails
         placeId={0}
         leaflet={leaflet}
+        onActivatePlace={() => {}}
       />;
   }
   return null;
@@ -46,6 +50,8 @@ App.propTypes = {
   cities: PropTypes.array.isRequired,
   getPlaces: PropTypes.func.isRequired,
   changeCity: PropTypes.func.isRequired,
+  sortingOrder: PropTypes.object.isRequired,
+  setSorting: PropTypes.func.isRequired,
 };
 
 getPageScreen.propTypes = {
@@ -58,6 +64,8 @@ getPageScreen.propTypes = {
   cities: PropTypes.array.isRequired,
   getPlaces: PropTypes.func.isRequired,
   changeCity: PropTypes.func.isRequired,
+  sortingOrder: PropTypes.object.isRequired,
+  setSorting: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -68,6 +76,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     changeCity: (city) => dispatch(ActionCreator.changeCity(city)),
     getPlaces: (city) => dispatch(ActionCreator.getPlaces(city)),
+    setSorting: (option, city) => dispatch(ActionCreator.setSorting(option, city)),
   };
 };
 

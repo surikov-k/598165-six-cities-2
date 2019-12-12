@@ -74,6 +74,8 @@ describe(`<App/>`, () => {
         currentCity={``}
         cities={[]}
         changeCity={() => {}}
+        sortingOrder={{id: 0, value: ``}}
+        setSorting={() => {}}
         getPlaces={() => {}}
         places={places}
         onHeaderClick={() => {}}

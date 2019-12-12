@@ -166,6 +166,7 @@ const PropertyDetails = (props) => {
               <PlacesList
                 places={nearPlaces}
                 onHeaderClick={() => {}}
+                onActivatePlace={() => {}}
               />
             </div>
           </section>

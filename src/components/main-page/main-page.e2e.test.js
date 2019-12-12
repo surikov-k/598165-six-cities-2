@@ -74,6 +74,8 @@ describe(`<MainPage/>`, () => {
           getPlaces={() => {}}
           onHeaderClick={onClick}
           leaflet={mockLeaflet}
+          sortingOrder={{id: 0, value: ``}}
+          setSorting={() => {}}
         />
     );
     const links = component.find(`.place-card__name a`);
