@@ -28,14 +28,14 @@ class Map extends PureComponent {
   }
 
   componentDidMount() {
-    const places = this.props.places.slice(0, 4);
+    const places = this.props.places;
     this._mapInit();
     this._renderMarkers(places);
 
   }
 
   componentDidUpdate() {
-    const places = this.props.places.slice(0, 4);
+    const places = this.props.places;
     this._markers.forEach((marker) => this._map.removeLayer(marker));
     this._markers = [];
     this._renderMarkers(places);
@@ -65,7 +65,7 @@ class Map extends PureComponent {
     places.forEach((place) => {
       const marker = leaflet
         .marker(place.coords, {
-          icon: place.id === this.props.activePlaceId
+          icon: place.id === this.props.activePlace
             ? this._activeIcon
             : this._icon
         })
@@ -94,7 +94,7 @@ Map.propTypes = {
     isBookmarked: PropTypes.bool,
   })).isRequired,
   leaflet: PropTypes.object.isRequired,
-  activePlaceId: PropTypes.number,
+  activePlace: PropTypes.number,
 };
 
 export default Map;

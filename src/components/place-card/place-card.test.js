@@ -22,6 +22,7 @@ describe(`<PlaceCard/>`, () => {
         place={place}
         onHeaderClick={() => {}}
         onActivatePlace={() => {}}
+        onSelect={() => {}}
       />)
       .toJSON();
 

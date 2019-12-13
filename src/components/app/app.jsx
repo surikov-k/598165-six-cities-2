@@ -8,15 +8,27 @@ import MainPage from '../main-page/main-page.jsx';
 import PropertyDetails from '../property-details/property-details.jsx';
 import {ActionCreator} from '../../reducer.js';
 
-const getPageScreen = ({places, currentCity, cities, sortingOrder, changeCity, getPlaces, setSorting}) => {
+const getPageScreen = ({
+  places,
+  currentCity,
+  activePlace,
+  cities,
+  sortingOrder,
+  changeCity,
+  getPlaces,
+  setSorting,
+  setActivePlace,
+}) => {
   switch (location.pathname) {
     case `/`:
       return <MainPage
         places={places}
         cities={cities}
         currentCity={currentCity}
+        activePlace={activePlace}
         sortingOrder={sortingOrder}
-        setSorting={setSorting}
+        onSetSorting={setSorting}
+        onActivatePlace={setActivePlace}
         onChangeCity={(city) => {
           changeCity(city);
           getPlaces(city);
@@ -62,10 +74,12 @@ getPageScreen.propTypes = {
   reviews: PropTypes.array.isRequired,
   currentCity: PropTypes.string.isRequired,
   cities: PropTypes.array.isRequired,
+  activePlace: PropTypes.number.isRequired,
   getPlaces: PropTypes.func.isRequired,
   changeCity: PropTypes.func.isRequired,
   sortingOrder: PropTypes.object.isRequired,
   setSorting: PropTypes.func.isRequired,
+  setActivePlace: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -77,6 +91,7 @@ const mapDispatchToProps = (dispatch) => {
     changeCity: (city) => dispatch(ActionCreator.changeCity(city)),
     getPlaces: (city) => dispatch(ActionCreator.getPlaces(city)),
     setSorting: (option, city) => dispatch(ActionCreator.setSorting(option, city)),
+    setActivePlace: (id) => dispatch(ActionCreator.setActivePlace(id)),
   };
 };
 

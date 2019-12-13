@@ -79,6 +79,7 @@ describe(`<App/>`, () => {
         getPlaces={() => {}}
         places={places}
         onHeaderClick={() => {}}
+        onActivatePlace={() => {}}
         leaflet={mockLeaflet}
       />
       )

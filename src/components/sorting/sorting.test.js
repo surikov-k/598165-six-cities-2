@@ -14,6 +14,7 @@ describe(`<Sorting/>`, () => {
         sortingOrder={sortingOrder}
         setSorting={setSorting}
         currentCity={currentCity}
+        onSetSorting={() => {}}
       />)
       .toJSON();
 

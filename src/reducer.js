@@ -1,7 +1,7 @@
 import * as mock from './mocks/offers';
 import {sortingOptions} from './components/constants';
 
-export const allPlaces = mock.getPlaces(600);
+export const allPlaces = mock.getPlaces(60);
 export const allReviews = mock.getReviews();
 export const cities = mock.getCitiesList(allPlaces);
 
@@ -14,7 +14,7 @@ export const initialState = {
   places: getPlacesFor(cities[0]),
   reviews: allReviews,
   currentCity: cities[0],
-  activeOffer: null,
+  activePlace: null,
   sortingOrder: sortingOptions[0],
 };
 
@@ -49,6 +49,7 @@ const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
   GET_PLACES: `GET_PLACES`,
   SET_SORTING: `SET_SORTING`,
+  SET_ACTIVE_PLACE: `SET_ACTIVE_PLACE`,
 };
 
 const ActionCreator = {
@@ -72,6 +73,13 @@ const ActionCreator = {
       payload: setSorting(option, city),
     };
   },
+
+  setActivePlace: (id) => {
+    return {
+      type: ActionType.SET_ACTIVE_PLACE,
+      payload: id
+    };
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -87,6 +95,9 @@ const reducer = (state = initialState, action) => {
         sortingOrder: action.payload.order,
         places: action.payload.places,
       });
+
+    case ActionType.SET_ACTIVE_PLACE:
+      return Object.assign({}, state, {activePlace: action.payload});
 
   }
   return state;

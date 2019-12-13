@@ -3,8 +3,8 @@
 exports[`<PlaceCard/> renders correctly 1`] = `
 <article
   className="cities__place-card place-card"
+  onMouseEnter={[Function]}
   onMouseLeave={[Function]}
-  onMouseOver={[Function]}
 >
   <div
     className="cities__image-wrapper place-card__image-wrapper"

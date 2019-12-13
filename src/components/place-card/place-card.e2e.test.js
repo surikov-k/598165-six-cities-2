@@ -17,16 +17,17 @@ const place = {
   isBookmarked: false,
 };
 
-const mouseOverHandler = jest.fn();
+const mouseEnterHandler = jest.fn();
 
 describe(`<PlaceCard/>`, () => {
   it(`calls onMouseOver callback with proper value`, () => {
     const component = shallow(<PlaceCard
       place={place}
       onHeaderClick={() => {}}
-      onActivatePlace={mouseOverHandler}
+      onActivatePlace={mouseEnterHandler}
+      onSelect={() => {}}
     />);
-    component.simulate(`mouseover`);
-    expect(mouseOverHandler).toHaveBeenCalledWith(0);
+    component.simulate(`mouseenter`);
+    expect(mouseEnterHandler).toHaveBeenCalledWith(0);
   });
 });

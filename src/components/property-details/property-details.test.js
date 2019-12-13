@@ -35,6 +35,7 @@ describe(`<PropertyDetails/>`, () => {
         places={places}
         reviews={reviews}
         leaflet={mockLeaflet}
+        onSelect={() => {}}
       />)
       .toJSON();
 

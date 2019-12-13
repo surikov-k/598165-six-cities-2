@@ -93,6 +93,11 @@ const propertyCoordinates = [
   [52.3809553943508, 4.939309666406198],
 ];
 
+const randomizeCoords = ([lat, lon], spread) => [
+  lat + Math.random() * spread,
+  lon + Math.random() * spread,
+];
+
 const hostAvatars = [
   `img/avatar-angelina.jpg`,
   `img/avatar-max.jpg`,
@@ -136,7 +141,8 @@ export const getPlaces = (amount) => {
           return url;
         },
         name: getRandomFromArray(propertyNames),
-        coords: getRandomFromArray(propertyCoordinates),
+        // coords: getRandomFromArray(propertyCoordinates),
+        coords: randomizeCoords(getRandomFromArray(propertyCoordinates), 0.02),
         price: Math.round(Math.random() * 120 + 80),
         rating: parseFloat((Math.random() * 5).toFixed(1)),
         type: getRandomFromArray(propertyTypes),

@@ -75,7 +75,8 @@ describe(`<MainPage/>`, () => {
           onHeaderClick={onClick}
           leaflet={mockLeaflet}
           sortingOrder={{id: 0, value: ``}}
-          setSorting={() => {}}
+          onSetSorting={() => {}}
+          onActivatePlace={() => {}}
         />
     );
     const links = component.find(`.place-card__name a`);
@@ -84,6 +85,6 @@ describe(`<MainPage/>`, () => {
       link.simulate(`click`);
     });
 
-    expect(onClick).toHaveBeenCalledTimes(4);
+    expect(onClick).toHaveBeenCalledTimes(5);
   });
 });
