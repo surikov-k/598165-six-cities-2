@@ -1,7 +1,7 @@
 import * as mock from './mocks/offers';
 import {sortingOptions} from './components/constants';
 
-export const allPlaces = mock.getPlaces(60);
+export const allPlaces = mock.getPlaces(20);
 export const allReviews = mock.getReviews();
 export const cities = mock.getCitiesList(allPlaces);
 
@@ -13,7 +13,7 @@ export const initialState = {
   cities,
   places: getPlacesFor(cities[0]),
   reviews: allReviews,
-  currentCity: cities[0],
+  currentCity: cities[0] || `the world (`,
   activePlace: null,
   sortingOrder: sortingOptions[0],
 };
