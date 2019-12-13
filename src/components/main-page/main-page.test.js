@@ -68,7 +68,8 @@ describe(`<MainPage/>`, () => {
         getPlaces={() => {}}
         onHeaderClick={() => {}}
         leaflet={mockLeaflet}
-        setSorting={() => {}}
+        onSetSorting={() => {}}
+        onActivatePlace={() => {}}
         sortingOrder={{id: 0, value: ``}}
       />)
       .toJSON();

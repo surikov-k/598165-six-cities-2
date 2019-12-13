@@ -4,8 +4,8 @@ exports[`<PlacesList/> renders correctly 1`] = `
 Array [
   <article
     className="cities__place-card place-card"
+    onMouseEnter={[Function]}
     onMouseLeave={[Function]}
-    onMouseOver={[Function]}
   >
     <div
       className="cities__image-wrapper place-card__image-wrapper"
@@ -104,8 +104,8 @@ Array [
   </article>,
   <article
     className="cities__place-card place-card"
+    onMouseEnter={[Function]}
     onMouseLeave={[Function]}
-    onMouseOver={[Function]}
   >
     <div
       className="cities__image-wrapper place-card__image-wrapper"

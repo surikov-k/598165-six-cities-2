@@ -41,6 +41,17 @@ describe(`reducer`, () => {
       places: setSorting(`Price: low to high`, `Amsterdam`).places
     }));
   });
+
+  it(`set active place`, () => {
+    expect(reducer(initialState, {
+      type: ActionType.SET_ACTIVE_PLACE,
+      payload: 0
+    })).toEqual(Object.assign({}, initialState, {
+      activePlace: 0,
+    }));
+  });
+
+
 });
 
 
@@ -66,6 +77,14 @@ describe(`ActionCreator`, () => {
       .toEqual({
         type: ActionType.SET_SORTING,
         payload: setSorting(`Popular`, `Amsterdam`)
+      });
+  });
+
+  it(`creates an expected action for set active place`, () =>{
+    expect(ActionCreator.setActivePlace(0))
+      .toEqual({
+        type: ActionType.SET_ACTIVE_PLACE,
+        payload: 0
       });
   });
 });

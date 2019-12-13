@@ -14,7 +14,7 @@ class Sorting extends PureComponent {
   }
 
   render() {
-    const {sortingOrder, setSorting, currentCity} = this.props;
+    const {sortingOrder, currentCity, onSetSorting} = this.props;
     return (
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption" style={{marginRight: 10 + `px`}}>Sort by</span>
@@ -32,7 +32,7 @@ class Sorting extends PureComponent {
                 className="places__option places__option--active"
                 tabIndex="0"
                 onClick={() => {
-                  setSorting(option, currentCity);
+                  onSetSorting(option, currentCity);
                   this._sortClickHandler();
                 }}
               >
@@ -52,7 +52,7 @@ class Sorting extends PureComponent {
 
 Sorting.propTypes = {
   sortingOrder: PropTypes.object.isRequired,
-  setSorting: PropTypes.func.isRequired,
+  onSetSorting: PropTypes.func.isRequired,
   currentCity: PropTypes.string.isRequired,
 };
 

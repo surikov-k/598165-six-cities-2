@@ -10,6 +10,7 @@ describe(`<CitiesTabs/>`, () => {
         currentCity={``}
         cities={[]}
         onChangeCity={() => {}}
+        active={0}
       />)
       .toJSON();
 

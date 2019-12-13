@@ -6,16 +6,19 @@ const PlaceCard = (props) => {
     place,
     onHeaderClick,
     onActivatePlace,
+    onSelect,
   } = props;
 
   return (
     <article
       className="cities__place-card place-card"
-      onMouseOver={() => {
+      onMouseEnter={() => {
         onActivatePlace(place.id);
+        onSelect(place.id);
       }}
       onMouseLeave={() => {
         onActivatePlace(null);
+        onSelect(place.id);
       }}
     >
       {
@@ -75,7 +78,8 @@ PlaceCard.propTypes = {
     isBookmarked: PropTypes.bool.isRequired,
   }).isRequired,
   onHeaderClick: PropTypes.func.isRequired,
-  onActivatePlace: PropTypes.func.isRequired,
+  onActivatePlace: PropTypes.func,
+  onSelect: PropTypes.func.isRequired,
 };
 
 export default PlaceCard;

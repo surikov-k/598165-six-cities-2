@@ -3,15 +3,21 @@ import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card.jsx';
 
 const PlacesList = (props) => {
-  const places = props.places.slice(0, 4);
+  const {
+    places,
+    onActivatePlace,
+    onHeaderClick,
+    onSelect,
+  } = props;
   return (
     <Fragment>
       {places.map((place) => {
         return <PlaceCard
           key={place.id}
           place={place}
-          onActivatePlace={props.onActivatePlace}
-          onHeaderClick={props.onHeaderClick}
+          onActivatePlace={onActivatePlace}
+          onHeaderClick={onHeaderClick}
+          onSelect={onSelect}
         />;
       })}
     </Fragment>
@@ -31,6 +37,7 @@ PlacesList.propTypes = {
   })).isRequired,
   onHeaderClick: PropTypes.func.isRequired,
   onActivatePlace: PropTypes.func,
+  onSelect: PropTypes.func,
 };
 
 export default PlacesList;

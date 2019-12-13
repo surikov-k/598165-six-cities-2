@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CitiesTabs = ({currentCity, cities, onChangeCity}) => {
+const CitiesTabs = ({active, cities, onChangeCity, onSelect}) => {
+  const currentCity = active;
 
   return (
     <div className="tabs">
@@ -15,6 +16,7 @@ const CitiesTabs = ({currentCity, cities, onChangeCity}) => {
                     className={`locations__item-link tabs__item ${city === currentCity && `tabs__item--active`}`}
                     onClick={() => {
                       onChangeCity(city);
+                      onSelect(city);
                     }}
                   >
                     <span>{city}</span>
@@ -31,8 +33,9 @@ const CitiesTabs = ({currentCity, cities, onChangeCity}) => {
 };
 
 CitiesTabs.propTypes = {
-  currentCity: PropTypes.string.isRequired,
+  active: PropTypes.any,
   onChangeCity: PropTypes.func.isRequired,
+  onSelect: PropTypes.func,
   cities: PropTypes.array.isRequired,
 };
 
