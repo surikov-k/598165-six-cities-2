@@ -109,10 +109,6 @@ const MainPage = (props) => {
   );
 };
 
-// _activePlaceHandler(id) {
-//   this.setState({activePlaceId: id});
-// }
-
 
 MainPage.propTypes = {
   places: PropTypes.arrayOf(PropTypes.shape({

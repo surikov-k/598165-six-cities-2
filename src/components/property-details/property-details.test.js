@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 
 import mockLeaflet from '../../mocks/mock-leaflet';
-import {PropertyDetails} from './property-details.jsx';
+import PropertyDetails from './property-details.jsx';
 
 const places = [
   {

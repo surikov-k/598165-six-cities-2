@@ -7,7 +7,7 @@ import {compose} from 'recompose';
 
 import createAPI from './api';
 
-import {reducer, Operation} from './reducer';
+import {reducer, Operation} from './reducer/reducer';
 import App from './components/app/app.jsx';
 
 const api = createAPI((...args) => store.dispatch(...args));

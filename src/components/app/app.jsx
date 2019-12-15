@@ -6,18 +6,19 @@ import leaflet from 'leaflet';
 
 import MainPage from '../main-page/main-page.jsx';
 import PropertyDetails from '../property-details/property-details.jsx';
-import {ActionCreator, sortPlaces} from '../../reducer.js';
+import {ActionCreator} from '../../reducer/reducer';
+import {sortPlaces} from '../../reducer/reducer';
 
-const getPageScreen = ({
-  places,
-  currentCity,
-  activePlace,
-  cities,
-  sortingOrder,
-  changeCity,
-  setSorting,
-  setActivePlace,
-}) => {
+
+const getPageScreen = (props) => {
+
+  const {
+    places, cities, reviews,
+    currentCity, activePlace, sortingOrder,
+    changeCity,
+    setSorting,
+    setActivePlace} = props;
+
   switch (location.pathname) {
     case `/`:
       return <MainPage
@@ -38,6 +39,7 @@ const getPageScreen = ({
       return <PropertyDetails
         placeId={0}
         places={places}
+        reviews={reviews}
         leaflet={leaflet}
         onActivatePlace={() => {}}
       />;
@@ -79,8 +81,9 @@ getPageScreen.propTypes = {
   setActivePlace: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return Object.assign({}, ownProps, state);
+const mapStateToProps = ({data, app}, ownProps) => {
+  const props = Object.assign({}, ownProps, data, app);
+  return props;
 };
 
 const mapDispatchToProps = (dispatch) => {

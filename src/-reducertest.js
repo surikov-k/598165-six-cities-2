@@ -4,7 +4,7 @@ import {
   ActionType,
   initialState,
   Operation,
-} from './reducer';
+} from './reducer/reducer';
 
 import MockAdapter from 'axios-mock-adapter';
 import createAPI from './api';
