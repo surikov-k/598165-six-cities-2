@@ -2,10 +2,20 @@ const initialState = {
   cities: [],
   places: [],
   reviews: [],
+  isAuthorizationRequired: true,
+  user: {
+    id: null,
+    email: ``,
+    name: ``,
+    avatarUrl: ``,
+    isPro: false
+  }
 };
 
 const ActionType = {
   LOAD_DATA: `LOAD_DATA`,
+  SET_AUTHORIZATION: `SET_AUTHORIZATION`,
+  SET_USER_DATA: `SET_USER_DATA`,
 };
 
 const ActionCreator = {
@@ -15,6 +25,18 @@ const ActionCreator = {
       payload: {places, cities},
     };
   },
+  setAuthorization: (value) => {
+    return {
+      type: ActionType.SET_AUTHORIZATION,
+      payload: value,
+    };
+  },
+  setUserData: (data) => {
+    return {
+      type: ActionType.SET_USER_DATA,
+      payload: data,
+    };
+  },
 };
 
 const Operation = {
@@ -22,9 +44,20 @@ const Operation = {
     return api.get(`/hotels`)
       .then((response) => {
         if (response.status === 200) {
-          const places = response.data.map((place) => convertRaw(place));
+          const places = response.data.map((place) => fromRawPlace(place));
           const cities = getCitiesList(places);
           dispatch(ActionCreator.loadData(places, cities));
+        }
+      });
+  },
+
+  login: (user) => (dispatch, _, api) => {
+    return api.post(`/login`, user)
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch(ActionCreator.setAuthorization(false));
+          const userData = fromRawUser(response.data);
+          dispatch(ActionCreator.setUserData(userData));
         }
       });
   },
@@ -38,11 +71,17 @@ const reducer = (state = initialState, action) => {
         cities: action.payload.cities,
         currentCity: action.payload.cities[0]
       });
+
+    case ActionType.SET_AUTHORIZATION:
+      return Object.assign({}, state, {isAuthorizationRequired: action.payload});
+
+    case ActionType.SET_USER_DATA:
+      return Object.assign({}, state, {user: action.payload});
   }
   return state;
 };
 
-const convertRaw = (place) => {
+const fromRawPlace = (place) => {
   return {
     id: place.id,
     cityName: place.city.name,
@@ -70,6 +109,16 @@ const convertRaw = (place) => {
     text: place.description,
     isPremium: place.is_premium,
     isBookmarked: place.is_favorite,
+  };
+};
+
+const fromRawUser = (user) => {
+  return {
+    id: user.id,
+    email: user.email,
+    name: user.name,
+    avatarUrl: user.avatar_url,
+    isPro: user.is_pro
   };
 };
 

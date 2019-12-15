@@ -34,6 +34,7 @@ describe(`<PropertyDetails/>`, () => {
       .create(<PropertyDetails
         placeId = {0}
         places={places}
+        user={{id: 0, email: ``}}
         reviews={reviews}
         leaflet={mockLeaflet}
         onSelect={() => {}}

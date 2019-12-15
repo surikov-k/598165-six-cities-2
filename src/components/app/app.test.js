@@ -78,6 +78,8 @@ describe(`<App/>`, () => {
         setSorting={() => {}}
         getPlaces={() => {}}
         places={places}
+        user={{id: 0, email: ``}}
+        isAuthorizationRequired={false}
         onHeaderClick={() => {}}
         onActivatePlace={() => {}}
         leaflet={mockLeaflet}

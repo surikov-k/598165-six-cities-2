@@ -33,7 +33,7 @@ const ActionCreator = {
       type: ActionType.SET_ACTIVE_PLACE,
       payload: id
     };
-  }
+  },
 };
 
 const reducer = (state = initialState, action) => {

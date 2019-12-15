@@ -65,19 +65,20 @@ const places = [
 describe(`<MainPage/>`, () => {
   it(`fires onClick callback after click on each place card header`, () => {
     const onClick = jest.fn();
-    const component = mount(
-        <MainPage
-          places={places}
-          currentCity=""
-          cities={[]}
-          onChangeCity={() => {}}
-          getPlaces={() => {}}
-          onHeaderClick={onClick}
-          leaflet={mockLeaflet}
-          sortingOrder={{id: 0, value: ``}}
-          onSetSorting={() => {}}
-          onActivatePlace={() => {}}
-        />
+    const component = mount(<MainPage
+      isAuthorizationRequired={false}
+      places={places}
+      currentCity=""
+      cities={[]}
+      user={{}}
+      onChangeCity={() => {}}
+      getPlaces={() => {}}
+      onHeaderClick={onClick}
+      leaflet={mockLeaflet}
+      sortingOrder={{id: 0, value: ``}}
+      onSetSorting={() => {}}
+      onActivatePlace={() => {}}
+    />
     );
     const links = component.find(`.place-card__name a`);
 
