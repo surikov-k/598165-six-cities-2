@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const CitiesTabs = ({active, cities, onChangeCity, onSelect}) => {
-  const currentCity = active;
+  const currentCity = active || cities[0];
 
   return (
     <div className="tabs">

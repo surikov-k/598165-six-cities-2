@@ -1,53 +1,51 @@
-import * as mock from './mocks/offers';
+// import * as mock from './mocks/offers';
 import {sortingOptions} from './components/constants';
 
-export const allPlaces = mock.getPlaces(20);
-export const allReviews = mock.getReviews();
-export const cities = mock.getCitiesList(allPlaces);
+// export const allPlaces = mock.getPlaces(20);
+// export const allReviews = mock.getReviews();
+// export const cities = [];
 
-export const getPlacesFor = (city) => {
-  return allPlaces.filter((place) => place.cityName === city);
+export const filterPlacesFor = (city, places) => {
+  return places.filter((place) => place.cityName === city);
+};
+
+const getCitiesList = (places) => {
+  const list = places.map((place) => place.cityName);
+  return [...new Set(list)];
 };
 
 export const initialState = {
-  cities,
-  places: getPlacesFor(cities[0]),
-  reviews: allReviews,
-  currentCity: cities[0] || `the world (`,
+  cities: [],
+  places: [],
+  reviews: [],
+  currentCity: ``,
   activePlace: null,
   sortingOrder: sortingOptions[0],
 };
 
 
-export const setSorting = (order, city) => {
-  let places = [];
+export const sortPlaces = (places, city, order) => {
+  let result = filterPlacesFor(city, places);
 
   switch (order.value) {
     case `Popular`:
-      places = getPlacesFor(city);
       break;
 
     case `Price: low to high`:
-      places = getPlacesFor(city).sort((a, b) => a.price - b.price);
-      break;
+      return result.sort((a, b) => a.price - b.price);
 
     case `Price: high to low`:
-      places = getPlacesFor(city).sort((a, b) => b.price - a.price);
-      break;
+      return result.sort((a, b) => b.price - a.price);
 
     case `Top rated first`:
-      places = getPlacesFor(city).sort((a, b) => b.rating - a.rating);
-      break;
+      return result.sort((a, b) => b.rating - a.rating);
   }
-  return {
-    order,
-    places,
-  };
+  return result;
 };
 
 const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
-  GET_PLACES: `GET_PLACES`,
+  LOAD_DATA: `LOAD_DATA`,
   SET_SORTING: `SET_SORTING`,
   SET_ACTIVE_PLACE: `SET_ACTIVE_PLACE`,
 };
@@ -60,17 +58,17 @@ const ActionCreator = {
     };
   },
 
-  getPlaces: (city) => {
+  loadData: (places, cities) => {
     return {
-      type: ActionType.GET_PLACES,
-      payload: getPlacesFor(city),
+      type: ActionType.LOAD_DATA,
+      payload: {places, cities},
     };
   },
 
-  setSorting: (option, city) => {
+  setSorting: (option) => {
     return {
       type: ActionType.SET_SORTING,
-      payload: setSorting(option, city),
+      payload: option,
     };
   },
 
@@ -82,19 +80,64 @@ const ActionCreator = {
   }
 };
 
+const Operation = {
+  loadData: () => (dispatch, _, api) => {
+    return api.get(`/hotels`)
+      .then((response) => {
+        if (response.status === 200) {
+          const places = response.data.map((place) => convertRaw(place));
+          const cities = getCitiesList(places);
+          dispatch(ActionCreator.loadData(places, cities));
+        }
+      });
+  },
+};
+
+const convertRaw = (place) => {
+  return {
+    id: place.id,
+    cityName: place.city.name,
+    cityCoords: [
+      place.city.location.latitude,
+      place.city.location.longitude,
+    ],
+    img: place.preview_image,
+    images: place.images,
+    name: place.title,
+    coords: [
+      place.location.latitude,
+      place.location.longitude,
+    ],
+    price: place.price,
+    rating: place.rating,
+    type: place.type,
+    bedrooms: place.bedrooms,
+    guests: place.max_adults,
+    hostId: place.host.id,
+    hostAvatar: place.host.avatar_url,
+    hostName: place.host.name,
+    hostIsSuper: place.host.is_pro,
+    insideItems: place.goods,
+    text: place.description,
+    isPremium: place.is_premium,
+    isBookmarked: place.is_favorite,
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
       return Object.assign({}, state, {currentCity: action.payload});
 
-    case ActionType.GET_PLACES:
-      return Object.assign({}, state, {places: action.payload});
+    case ActionType.LOAD_DATA:
+      return Object.assign({}, state, {
+        places: action.payload.places,
+        cities: action.payload.cities,
+        currentCity: action.payload.cities[0]
+      });
 
     case ActionType.SET_SORTING:
-      return Object.assign({}, state, {
-        sortingOrder: action.payload.order,
-        places: action.payload.places,
-      });
+      return Object.assign({}, state, {sortingOrder: action.payload});
 
     case ActionType.SET_ACTIVE_PLACE:
       return Object.assign({}, state, {activePlace: action.payload});
@@ -107,4 +150,5 @@ export {
   reducer,
   ActionCreator,
   ActionType,
+  Operation,
 };

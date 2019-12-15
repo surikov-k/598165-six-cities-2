@@ -29,13 +29,17 @@ class Map extends PureComponent {
 
   componentDidMount() {
     const places = this.props.places;
-    this._mapInit();
-    this._renderMarkers(places);
+    if (places.length) {
+      this._city = places[0].cityCoords;
+      this._mapInit();
+      this._renderMarkers(places);
+    }
 
   }
 
   componentDidUpdate() {
     const places = this.props.places;
+    this._map.setView(places[0].cityCoords, this._zoom);
     this._markers.forEach((marker) => this._map.removeLayer(marker));
     this._markers = [];
     this._renderMarkers(places);
@@ -80,6 +84,7 @@ Map.propTypes = {
   places: PropTypes.arrayOf(PropTypes.shape({
     images: PropTypes.arrayOf(PropTypes.string),
     name: PropTypes.string,
+    cityCoords: PropTypes.array,
     price: PropTypes.number,
     rating: PropTypes.number,
     type: PropTypes.string,
@@ -89,7 +94,7 @@ Map.propTypes = {
     hostName: PropTypes.string,
     hostIsSuper: PropTypes.bool,
     insideItems: PropTypes.arrayOf(PropTypes.string),
-    text: PropTypes.arrayOf(PropTypes.string),
+    text: PropTypes.string,
     isPremium: PropTypes.bool,
     isBookmarked: PropTypes.bool,
   })).isRequired,

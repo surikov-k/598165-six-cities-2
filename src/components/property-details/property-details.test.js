@@ -19,9 +19,10 @@ const places = [
     hostName: ``,
     hostIsSuper: false,
     insideItems: [],
-    text: [],
+    text: ``,
     isPremium: false,
     isBookmarked: false,
+    cityCoords: [],
   },
 ];
 
