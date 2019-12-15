@@ -11,7 +11,7 @@ import Map from '../map/map.jsx';
 import MainEmpty from '../main-empty/main-empty.jsx';
 
 const PlacesListWrapped = withActiveItem(PlacesList);
-const CitiesTabstWrapped = withActiveItem(CitiesTabs);
+const CitiesTabsWrapped = withActiveItem(CitiesTabs);
 
 const MainPage = (props) => {
   const {
@@ -56,7 +56,7 @@ const MainPage = (props) => {
         `page__main page__main--index
         ${places.length ? `` : `page__main--index-empty`}`}>
         <h1 className="visually-hidden">Cities</h1>
-        <CitiesTabstWrapped
+        <CitiesTabsWrapped
           active={currentCity}
           cities={cities}
           onChangeCity={onChangeCity}
@@ -89,6 +89,7 @@ const MainPage = (props) => {
                   <Map
                     places={places}
                     leaflet={leaflet}
+                    currentCity={currentCity}
                     activePlace={activePlace}
                   />
                 </section>

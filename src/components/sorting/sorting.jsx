@@ -14,7 +14,7 @@ class Sorting extends PureComponent {
   }
 
   render() {
-    const {sortingOrder, currentCity, onSetSorting} = this.props;
+    const {sortingOrder, onSetSorting} = this.props;
     return (
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption" style={{marginRight: 10 + `px`}}>Sort by</span>
@@ -32,7 +32,7 @@ class Sorting extends PureComponent {
                 className="places__option places__option--active"
                 tabIndex="0"
                 onClick={() => {
-                  onSetSorting(option, currentCity);
+                  onSetSorting(option);
                   this._sortClickHandler();
                 }}
               >

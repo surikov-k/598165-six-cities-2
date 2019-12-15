@@ -215,7 +215,9 @@ exports[`<PropertyDetails/> renders correctly 1`] = `
             </div>
             <div
               className="property__description"
-            />
+            >
+              
+            </div>
           </div>
           <section
             className="property__reviews reviews"
