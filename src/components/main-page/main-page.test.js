@@ -64,12 +64,14 @@ describe(`<MainPage/>`, () => {
         places={places}
         currentCity=""
         cities={[]}
+        user={{id: 0, email: ``}}
         onChangeCity={() => {}}
         getPlaces={() => {}}
         onHeaderClick={() => {}}
         leaflet={mockLeaflet}
         onSetSorting={() => {}}
         onActivatePlace={() => {}}
+        isAuthorizationRequired={false}
         sortingOrder={{id: 0, value: ``}}
       />)
       .toJSON();

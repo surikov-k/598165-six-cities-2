@@ -1,9 +1,6 @@
 // import * as mock from './mocks/offers';
 import {sortingOptions} from './components/constants';
 
-// export const allPlaces = mock.getPlaces(20);
-// export const allReviews = mock.getReviews();
-// export const cities = [];
 
 export const filterPlacesFor = (city, places) => {
   return places.filter((place) => place.cityName === city);

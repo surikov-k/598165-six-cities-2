@@ -4,17 +4,19 @@ import PropTypes from 'prop-types';
 import PropertyReviews from '../property-reviews/property-reviews.jsx';
 import Map from '../map/map.jsx';
 import PlacesList from '../places-list/places-list.jsx';
-import {connect} from 'react-redux';
+import Header from '../header/header.jsx';
 
-const NEAR_PLACES_TO_DISPLAY = 3;
+const NEARBY_PLACES_TO_DISPLAY = 3;
 
 const PropertyDetails = (props) => {
   const {
     placeId,
     places,
+    user,
     reviews,
     leaflet
   } = props;
+
 
   const getDistance = (a, b) => {
     const [xa, ya] = a.coords;
@@ -27,35 +29,14 @@ const PropertyDetails = (props) => {
   const nearPlaces = places
     .filter((place) => place.id !== currentPlace.id)
     .sort((a, b) => getDistance(b, currentPlace) - getDistance(a, currentPlace))
-    .slice(0, NEAR_PLACES_TO_DISPLAY);
+    .slice(0, NEARBY_PLACES_TO_DISPLAY);
 
   return (
-    <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <a className="header__logo-link" href="/">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </a>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
-      {!currentPlace ?
-        <p>loading...</p>
-        :
+    !currentPlace ?
+      <p>loading...</p>
+      :
+      <div className="page">
+        <Header user={user} />
         <main className="page__main page__main--property">
           <section className="property">
             <div className="property__gallery-container container">
@@ -172,9 +153,9 @@ const PropertyDetails = (props) => {
           </div>
         </main>
 
-      }
+      </div>
 
-    </div>
+
   );
 };
 
@@ -197,16 +178,10 @@ PropertyDetails.propTypes = {
     isPremium: PropTypes.bool,
     isBookmarked: PropTypes.bool,
   })).isRequired,
+  user: PropTypes.object.isRequired,
   reviews: PropTypes.array.isRequired,
   leaflet: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return Object.assign({}, ownProps, {
-    places: state.places,
-    reviews: state.reviews,
-  });
-};
+export default PropertyDetails;
 
-export {PropertyDetails};
-export default connect(mapStateToProps)(PropertyDetails);

@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 
 import mockLeaflet from '../../mocks/mock-leaflet';
-import {PropertyDetails} from './property-details.jsx';
+import PropertyDetails from './property-details.jsx';
 
 const places = [
   {
@@ -34,6 +34,7 @@ describe(`<PropertyDetails/>`, () => {
       .create(<PropertyDetails
         placeId = {0}
         places={places}
+        user={{id: 0, email: ``}}
         reviews={reviews}
         leaflet={mockLeaflet}
         onSelect={() => {}}
