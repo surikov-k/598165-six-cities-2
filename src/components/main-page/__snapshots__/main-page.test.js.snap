@@ -673,7 +673,7 @@ exports[`<MainPage/> renderes correctly 1`] = `
             className="cities__map map"
             style={
               Object {
-                "height": "823px",
+                "height": "100%",
               }
             }
           >

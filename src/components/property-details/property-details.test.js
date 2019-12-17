@@ -32,12 +32,15 @@ describe(`<PropertyDetails/>`, () => {
   it(`renders correctly`, () => {
     const container = renderer
       .create(<PropertyDetails
-        placeId = {0}
+        isAuthorizationRequired={false}
+        placeId={0}
         places={places}
         user={{id: 0, email: ``}}
         reviews={reviews}
         leaflet={mockLeaflet}
         onSelect={() => {}}
+        onReviewSubmit={() => {}}
+        onLoginSubmit={() => {}}
       />)
       .toJSON();
 

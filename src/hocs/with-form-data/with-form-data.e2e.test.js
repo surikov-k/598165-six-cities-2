@@ -7,7 +7,7 @@ import withFormData from './with-form-data.jsx';
 configure({adapter: new Adapter()});
 
 const Component = ({onChange}) => (<div>
-  <input type="text" onChange={() => onChange(`name`, `value`)}/>
+  <input type="text" onChange={(evt) => onChange(evt)}/>
 </div>);
 Component.propTypes = {
   onChange: PropTypes.func,
@@ -17,10 +17,16 @@ const ComponentWrapped = withFormData(Component);
 
 describe(`HOC withFormData should`, () => {
   it(`sets state correctly`, () => {
+    const mockEvt = {
+      target: {
+        name: `name`,
+        value: `value`,
+      }
+    };
     const component = mount(<ComponentWrapped
     />);
     const input = component.find(`input`);
-    input.simulate(`change`);
+    input.simulate(`change`, mockEvt);
     expect(component.state(`name`)).toEqual(`value`);
   });
 });

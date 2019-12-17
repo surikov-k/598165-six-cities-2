@@ -6,22 +6,23 @@ import leaflet from 'leaflet';
 
 import MainPage from '../main-page/main-page.jsx';
 import PropertyDetails from '../property-details/property-details.jsx';
-import {ActionCreator, Operation} from '../../reducer/reducer';
-import {sortPlaces} from '../../reducer/reducer';
+import {ActionCreator, Operation} from '../../reducer/actions';
 
 
 const getPageScreen = (props) => {
 
   const {
-    places, cities, reviews, user,
+    allPlaces, places, cities, reviews, user,
     currentCity, activePlace, sortingOrder, isAuthorizationRequired,
-    changeCity, setSorting, setActivePlace, login,
+    changeCity, setSorting, setActivePlace, login, loadReviews, submitReview,
   } = props;
+
+  const placeId = allPlaces[0].id;
 
   switch (location.pathname) {
     case `/`:
       return <MainPage
-        places={sortPlaces(places, currentCity, sortingOrder)}
+        places={places}
         cities={cities}
         user={user}
         currentCity={currentCity}
@@ -31,29 +32,42 @@ const getPageScreen = (props) => {
         onSetSorting={setSorting}
         onActivatePlace={setActivePlace}
         onChangeCity={(city) => {
-          changeCity(city);
+          changeCity(city, allPlaces);
         }}
         onHeaderClick={() => {}}
         onLoginSubmit={login}
         leaflet={leaflet}
       />;
     case `/details`:
-      return <PropertyDetails
-        placeId={0}
-        places={places}
-        user={user}
-        reviews={reviews}
-        leaflet={leaflet}
-        onActivatePlace={() => {}}
-      />;
+      if (reviews === undefined) {
+        loadReviews(placeId);
+        return null;
+      } else {
+        return <PropertyDetails
+          isAuthorizationRequired={isAuthorizationRequired}
+          onLoginSubmit={login}
+          placeId={placeId}
+          places={places}
+          user={user}
+          reviews={reviews}
+          leaflet={leaflet}
+          onActivatePlace={() => {}}
+          onloadReviews={loadReviews}
+          onReviewSubmit={submitReview}
+        />;
+      }
   }
   return null;
 };
 
 const App = (props) => {
-  return <Fragment>
-    {getPageScreen(props)}
-  </Fragment>;
+  const {isDataLoading} = props;
+  return (
+    <Fragment>
+      {isDataLoading ? null :
+        getPageScreen(props)
+      }
+    </Fragment>);
 };
 
 App.propTypes = {
@@ -68,9 +82,11 @@ App.propTypes = {
   changeCity: PropTypes.func.isRequired,
   sortingOrder: PropTypes.object.isRequired,
   setSorting: PropTypes.func.isRequired,
+  isDataLoading: PropTypes.bool.isRequired,
 };
 
 getPageScreen.propTypes = {
+  allPlaces: PropTypes.array.isRequired,
   places: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
@@ -86,6 +102,8 @@ getPageScreen.propTypes = {
   setSorting: PropTypes.func.isRequired,
   setActivePlace: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
+  loadReviews: PropTypes.func.isRequired,
+  submitReview: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({data, app}, ownProps) => {
@@ -94,10 +112,15 @@ const mapStateToProps = ({data, app}, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    changeCity: (city) => dispatch(ActionCreator.changeCity(city)),
+    changeCity: (city, places) => {
+      dispatch(ActionCreator.filterCityPlaces(city, places));
+      dispatch(ActionCreator.changeCity(city));
+    },
     setSorting: (option) => dispatch(ActionCreator.setSorting(option)),
     setActivePlace: (id) => dispatch(ActionCreator.setActivePlace(id)),
     login: (user) => dispatch(Operation.login(user)),
+    loadReviews: (id) => dispatch(Operation.loadReviews(id)),
+    submitReview: (id, review) => dispatch(Operation.submitReview(id, review)),
   };
 };
 

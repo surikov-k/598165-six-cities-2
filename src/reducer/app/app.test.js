@@ -1,10 +1,8 @@
 import {
   reducer,
-  ActionCreator,
-  ActionType,
   initialState,
 } from './app';
-
+import {ActionType, ActionCreator} from '../actions';
 
 describe(`reducer`, () => {
   it(`returns the initial state`, () => {

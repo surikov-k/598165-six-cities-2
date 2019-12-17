@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+
 const PropertyReview = ({review}) => {
   const {
     rating,
@@ -30,7 +31,7 @@ const PropertyReview = ({review}) => {
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">{new Date(date).toDateString()}</time>
+        <time className="reviews__time" dateTime="2019-04-24">{date.toDateString()}</time>
       </div>
     </li>
   );
@@ -41,7 +42,7 @@ PropertyReview.propTypes = {
     id: PropTypes.number,
     rating: PropTypes.number,
     comment: PropTypes.string,
-    date: PropTypes.number,
+    date: PropTypes.date,
     userId: PropTypes.number,
     isUserPro: PropTypes.bool,
     userName: PropTypes.string,

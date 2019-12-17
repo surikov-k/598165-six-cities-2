@@ -6,7 +6,7 @@ import PropertyReview from './property-review.jsx';
 const review = {
   rating: 0,
   comment: ``,
-  date: 0,
+  date: new Date(0),
   userName: ``,
   userAvatar: ``,
 };
