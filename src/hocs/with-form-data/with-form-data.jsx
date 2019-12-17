@@ -5,9 +5,12 @@ const withFormData = (Component) => {
   class WithFormData extends PureComponent {
     constructor(props) {
       super(props);
-      this.state = {};
+      this.state = {
+        isValid: false,
+      };
 
       this._changeHandler = this._changeHandler.bind(this);
+      this._setValid = this._setValid.bind(this);
     }
 
     render() {
@@ -16,12 +19,20 @@ const withFormData = (Component) => {
           {...this.props}
           formData={this.state}
           onChange={this._changeHandler}
+          setValid={this._setValid}
         />
       );
     }
-    _changeHandler(name, value) {
+    _changeHandler(evt, validator = () => {}) {
+      const {target: {name}, target: {value}} = evt;
       this.setState({
         [name]: value
+      }, () => validator(this.state));
+    }
+
+    _setValid(value) {
+      this.setState({
+        isValid: value
       });
     }
 
@@ -35,4 +46,3 @@ const withFormData = (Component) => {
 };
 
 export default withFormData;
-

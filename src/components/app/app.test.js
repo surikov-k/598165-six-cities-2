@@ -9,6 +9,7 @@ const places = [
     id: 0,
     img: ``,
     name: ``,
+    cityCoords: [0, 0],
     coords: [0, 0],
     price: 0,
     rating: 0,
@@ -71,6 +72,8 @@ describe(`<App/>`, () => {
   it(`renders correctly`, () => {
     const component = renderer
       .create(<App
+        allPlaces={places}
+        isDataLoading={false}
         currentCity={``}
         cities={[]}
         changeCity={() => {}}

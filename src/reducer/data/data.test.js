@@ -1,9 +1,9 @@
 import {
   reducer,
-  ActionType,
   initialState,
-  Operation,
 } from './data';
+
+import {ActionType, Operation} from '../actions';
 
 import MockAdapter from 'axios-mock-adapter';
 import createAPI from '../../api';

@@ -33,13 +33,16 @@ const MainPage = (props) => {
   } = props;
 
   return (
-    <div className="page page--gray page--main">
-      <Header
+    isAuthorizationRequired ?
+      <SignIn
         user={user}
-      />
-      {isAuthorizationRequired ? <SignIn onLoginSubmit={onLoginSubmit}/> :
-        <main className={
-          `page__main page__main--index
+        onLoginSubmit={onLoginSubmit}
+      /> :
+      <div className="page page--gray page--main">
+        <Header
+          user={user}
+        />
+        <main className={`page__main page__main--index
         ${places.length ? `` : `page__main--index-empty`}`}>
           <h1 className="visually-hidden">Cities</h1>
           <CitiesTabsWrapped
@@ -47,53 +50,45 @@ const MainPage = (props) => {
             cities={cities}
             onChangeCity={onChangeCity}
           />
-          {places.length ?
-            <div className="cities">
-              <div className="cities__places-container container">
-                <section className="cities__places places">
-                  <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{places.length} places to stay in {currentCity}</b>
+          {
+            !places.length ? <MainEmpty currentCity={currentCity} /> :
+              <div className="cities">
+                <div className="cities__places-container container">
+                  <section className="cities__places places">
+                    <h2 className="visually-hidden">Places</h2>
+                    <b className="places__found">{places.length} places to stay in {currentCity}</b>
 
-                  <Sorting
-                    sortingOrder={sortingOrder}
-                    currentCity={currentCity}
-                    onSetSorting={onSetSorting}
-                  />
-
-                  <div
-                    className="cities__places-list places__list tabs__content">
-
-                    <PlacesListWrapped
-                      places={places}
-                      onHeaderClick={onHeaderClick}
-                      onActivatePlace={onActivatePlace}
-                    />
-                  </div>
-                </section >
-                <div className="cities__right-section">
-                  <section className="cities__map map" style={{height: 823 + `px`}}>
-                    <Map
-                      places={places}
-                      leaflet={leaflet}
+                    <Sorting
+                      sortingOrder={sortingOrder}
                       currentCity={currentCity}
-                      activePlace={activePlace}
+                      onSetSorting={onSetSorting}
                     />
-                  </section>
-                </div>
+
+                    <div
+                      className="cities__places-list places__list tabs__content">
+
+                      <PlacesListWrapped
+                        places={places}
+                        onHeaderClick={onHeaderClick}
+                        onActivatePlace={onActivatePlace}
+                      />
+                    </div>
+                  </section >
+                  <div className="cities__right-section">
+                    <section className="cities__map map" style={{height: 100 + `%`}}>
+                      <Map
+                        places={places}
+                        leaflet={leaflet}
+                        currentCity={currentCity}
+                        activePlace={activePlace}
+                      />
+                    </section>
+                  </div>
+                </div >
               </div >
-            </div >
-            :
-            <MainEmpty
-              currentCity={currentCity}
-            />
-
-
           }
-
         </main >
-      }
-
-    </div >
+      </div >
   );
 };
 
@@ -118,4 +113,3 @@ MainPage.propTypes = {
 };
 
 export default MainPage;
-

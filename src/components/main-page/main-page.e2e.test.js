@@ -70,7 +70,7 @@ describe(`<MainPage/>`, () => {
       places={places}
       currentCity=""
       cities={[]}
-      user={{}}
+      user={{id: 0, email: ``}}
       onChangeCity={() => {}}
       getPlaces={() => {}}
       onHeaderClick={onClick}

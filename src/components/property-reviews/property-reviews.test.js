@@ -8,7 +8,7 @@ const reviews = [
     id: 0,
     rating: 0,
     comment: ``,
-    date: 0,
+    date: new Date(0),
     userName: ``,
     userAvatar: ``,
   },
@@ -16,7 +16,7 @@ const reviews = [
     id: 1,
     rating: 0,
     comment: ``,
-    date: 0,
+    date: new Date(0),
     userName: ``,
     userAvatar: ``,
   },
@@ -26,7 +26,10 @@ describe(`<PropertyReviews/>`, () => {
   it(`renders correnctly`, () => {
     const component = renderer
       .create(<PropertyReviews
+        placeId={0}
+        isAuthorizationRequired={false}
         reviews={reviews}
+        onReviewSubmit={() => {}}
       />)
       .toJSON();
 

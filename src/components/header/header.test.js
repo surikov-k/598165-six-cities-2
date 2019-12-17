@@ -15,3 +15,4 @@ describe(`<Header/>`, () => {
     expect(component).toMatchSnapshot();
   });
 });
+
