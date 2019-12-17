@@ -12,6 +12,7 @@ import MainEmpty from '../main-empty/main-empty.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import Header from '../header/header.jsx';
 
+
 const PlacesListWrapped = withActiveItem(PlacesList);
 const CitiesTabsWrapped = withActiveItem(CitiesTabs);
 

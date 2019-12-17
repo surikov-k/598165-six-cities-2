@@ -7,6 +7,7 @@ import leaflet from 'leaflet';
 import MainPage from '../main-page/main-page.jsx';
 import PropertyDetails from '../property-details/property-details.jsx';
 import {ActionCreator, Operation} from '../../reducer/actions';
+import {selectSortedOffers} from '../../reducer/selectors.js';
 
 
 const getPageScreen = (props) => {
@@ -107,7 +108,9 @@ getPageScreen.propTypes = {
 };
 
 const mapStateToProps = ({data, app}, ownProps) => {
-  return Object.assign({}, ownProps, data, app);
+  return Object.assign({}, ownProps, data, app, {
+    places: selectSortedOffers(app),
+  });
 };
 
 const mapDispatchToProps = (dispatch) => {
