@@ -22,6 +22,7 @@ describe(`<SignIn/>`, () => {
         formData={{}}
         onChange={() => {}}
         isAuthorizationRequired={false}
+        onFavoritesClick={() => {}}
       />)
       .toJSON();
     expect(component).toMatchSnapshot();

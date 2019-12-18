@@ -32,15 +32,20 @@ const reducer = (state = initialState, action) => {
     case ActionType.SET_LOADING:
       return Object.assign({}, state, {isDataLoading: action.payload});
 
+    case ActionType.GET_FAVORITES:
+      return Object.assign({}, state, {favorites: action.payload});
+
     case ActionType.ADD_FAVORITE:
+
       return Object.assign({}, state,
           {favorites: [...state.favorites, action.payload]});
 
     case ActionType.REMOVE_FAVORITE:
-      const newFavs = state.favorites.slice();
       const indexToDelete = state.favorites
         .findIndex((place) => place.id === action.payload);
-      return Object.assign({}, state, {favorites: newFavs.splice(indexToDelete)});
+      const newFavs = state.favorites.slice();
+      newFavs.splice(indexToDelete, 1);
+      return Object.assign({}, state, {favorites: newFavs});
 
     case ActionType.UPDATE_DATA:
       const placeId = state.allPlaces

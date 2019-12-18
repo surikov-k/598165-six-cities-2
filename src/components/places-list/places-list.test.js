@@ -3,6 +3,12 @@ import renderer from 'react-test-renderer';
 
 import PlacesList from './places-list.jsx';
 
+jest.mock(`react-router-dom`,
+    () => ({
+      Link: () => null,
+    }));
+
+
 const mouseOverHandler = jest.fn();
 const headerClickHandler = jest.fn();
 

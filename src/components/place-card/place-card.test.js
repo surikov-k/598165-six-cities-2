@@ -2,6 +2,11 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 
 import PlaceCard from "./place-card.jsx";
+jest.mock(`react-router-dom`,
+    () => ({
+      Link: () => null,
+    }));
+
 
 const place = {
   id: 0,

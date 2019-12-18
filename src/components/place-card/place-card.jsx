@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 const PlaceCard = (props) => {
   const {
@@ -8,11 +9,28 @@ const PlaceCard = (props) => {
     onActivatePlace,
     onSelect,
     onChangeFavorite,
+    cardType,
   } = props;
+
+  const articalStyle = cardType === `favorites` ?
+    `favorites__card place-card` :
+    `cities__place-card place-card`;
+
+  const wrapperStyle = cardType === `favorites` ?
+    `favorites__image-wrapper place-card__image-wrapper` :
+    `cities__image-wrapper place-card__image-wrapper`;
+
+  const infoStyle = cardType === `favorites` ?
+    `favorites__card-info place-card__info` :
+    `place-card__info`;
+
+  const picSize = cardType === `favorites` ?
+    {width: 150, height: 110} :
+    {width: 260, height: 200};
 
   return (
     <article
-      className="cities__place-card place-card"
+      className={articalStyle}
       onMouseEnter={() => {
         onActivatePlace(place.id);
         onSelect(place.id);
@@ -30,12 +48,12 @@ const PlaceCard = (props) => {
           </div>
           : null
       }
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={wrapperStyle}>
         <a href="#">
-          <img className="place-card__image" src={place.img} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={place.img} width={picSize.width} height={picSize.height} alt="Place image" />
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={infoStyle}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{place.price}</b>
@@ -43,10 +61,10 @@ const PlaceCard = (props) => {
           </div>
           <button
             className={`place-card__bookmark-button
-            ${place.isBookmarked ? ` place-card__bookmark-button--active ` : ` `}
+            ${place.isBookmarked ? ` place-card__bookmark-button--active ` : ``}
             button`}
             type="button"
-            onClick = {() => {
+            onClick={() => {
               const status = place.isBookmarked ? 0 : 1;
               onChangeFavorite(place.id, status);
             }}
@@ -64,7 +82,10 @@ const PlaceCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#" onClick={onHeaderClick}>{place.name}</a>
+          <Link
+            to={`/offer/${place.id}`}
+            onClick={() => onHeaderClick(place.id)}>{place.name}
+          </Link>
         </h2>
         <p className="place-card__type">{place.type}</p>
       </div>
@@ -87,6 +108,7 @@ PlaceCard.propTypes = {
   onActivatePlace: PropTypes.func,
   onSelect: PropTypes.func.isRequired,
   onChangeFavorite: PropTypes.func.isRequired,
+  cardType: PropTypes.string,
 };
 
 export default PlaceCard;

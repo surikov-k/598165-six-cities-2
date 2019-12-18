@@ -16,8 +16,8 @@ const ActionType = {
   SET_ACTIVE_PLACE: `SET_ACTIVE_PLACE`,
 
   GET_FAVORITES: `GET_FAVORITES`,
-  ADD_FAVORITE: `CHANGE_FAVORITE`,
-  REMOVE_FAVORITE: `CHANGE_FAVORITE`,
+  ADD_FAVORITE: `ADD_FAVORITE`,
+  REMOVE_FAVORITE: `REMOVE_FAVORITE`,
 };
 
 const ActionCreator = {
@@ -98,7 +98,7 @@ const ActionCreator = {
     };
   },
 
-  getFavortites: (places) => {
+  getFavorites: (places) => {
     return {
       type: ActionType.GET_FAVORITES,
       payload: places,
@@ -112,10 +112,10 @@ const ActionCreator = {
     };
   },
 
-  removeFavorite: (place) => {
+  removeFavorite: (id) => {
     return {
       type: ActionType.REMOVE_FAVORITE,
-      payload: place,
+      payload: id,
     };
   },
 };
@@ -193,6 +193,7 @@ const Operation = {
           const place = fromRawPlace(response.data);
           dispatch(ActionCreator.updateData(place));
           dispatch(ActionCreator.updatePlaces(place));
+
           if (status === 1) {
             dispatch(ActionCreator.addFavorite(place));
           } else {
@@ -265,25 +266,6 @@ const getCitiesList = (places) => {
   const list = places.map((place) => place.cityName);
   return [...new Set(list)];
 };
-
-// export const sortPlaces = (order, places) => {
-//   let result = places;
-
-//   switch (order.value) {
-//     case `Popular`:
-//       break;
-
-//     case `Price: low to high`:
-//       return result.sort((a, b) => a.price - b.price);
-
-//     case `Price: high to low`:
-//       return result.sort((a, b) => b.price - a.price);
-
-//     case `Top rated first`:
-//       return result.sort((a, b) => b.rating - a.rating);
-//   }
-//   return result;
-// };
 
 export {
   ActionType,

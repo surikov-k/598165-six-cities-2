@@ -1,22 +1,21 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Header from './header';
+import FavoritesEmpty from './favoroites-empty';
 
 jest.mock(`react-router-dom`,
     () => ({
       Link: () => null,
     }));
 
-describe(`<Header/>`, () => {
+describe(`<FavoritesEmpty/>`, () => {
   it(`renders correctly`, () => {
     const component = renderer
-      .create(<Header
-        isAuthorizationRequired={false}
-        onFavoritesClick={() => {}}
+      .create(<FavoritesEmpty
         user={{
           id: 0,
           email: ``
         }}
+        isAuthorizationRequired={false}
       />)
       .toJSON();
     expect(component).toMatchSnapshot();

@@ -38,7 +38,7 @@ describe(`<PropertyDetails/>`, () => {
     const container = renderer
       .create(<PropertyDetails
         isAuthorizationRequired={false}
-        placeId={0}
+        currentPlace={places[0]}
         places={places}
         user={{id: 0, email: ``}}
         reviews={reviews}
@@ -46,6 +46,10 @@ describe(`<PropertyDetails/>`, () => {
         onSelect={() => {}}
         onReviewSubmit={() => {}}
         onLoginSubmit={() => {}}
+        onChangeFavorite={() => {}}
+        onActivatePlace={() => {}}
+        activePlace={0}
+        onFavoritesClick={() => {}}
       />)
       .toJSON();
 

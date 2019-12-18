@@ -2,18 +2,19 @@ import React, {PureComponent, createRef} from 'react';
 // import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
+
 class Map extends PureComponent {
   constructor(props) {
     super(props);
     this._mapRef = createRef();
     this._city = [52.38333, 4.9];
-    this._zoom = 12;
+    this._zoom = 13;
     this._icon = this.props.leaflet.icon({
-      iconUrl: `img/pin.svg`,
+      iconUrl: `/img/pin.svg`,
       iconSize: [30, 30],
     });
     this._activeIcon = this.props.leaflet.icon({
-      iconUrl: `img/pin-active.svg`,
+      iconUrl: `/img/pin-active.svg`,
       iconSize: [40, 40],
     });
     this._markers = [];
