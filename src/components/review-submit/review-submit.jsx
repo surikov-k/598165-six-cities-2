@@ -148,23 +148,24 @@ class ReviewSubmit extends PureComponent {
   }
 
   _validate(state) {
-    if (state.review.length < 50 || state.review.length > 300) {
-      this._setValid(false);
-      this._reviewRef.current
-        .setCustomValidity(`Review should be from 50 to 300 char long`);
-    } else if (state.rating === undefined) {
-      this._setValid(false);
-      this._ratingRef.current
-        .setCustomValidity(`You have to set a rating for the place`);
-    } else {
-      this._setValid(true);
-      this._reviewRef.current.setCustomValidity(``);
-      this._ratingRef.current.setCustomValidity(``);
+    if (state.review !== undefined) {
+      if (state.review.length < 50 || state.review.length > 300) {
+        this._setValid(false);
+        this._reviewRef.current
+          .setCustomValidity(`Review should be from 50 to 300 char long`);
+      } else if (state.rating === undefined) {
+        this._setValid(false);
+        this._ratingRef.current
+          .setCustomValidity(`You have to set a rating for the place`);
+      } else {
+        this._setValid(true);
+        this._reviewRef.current.setCustomValidity(``);
+        this._ratingRef.current.setCustomValidity(``);
+      }
     }
   }
 
 }
-
 
 ReviewSubmit.propTypes = {
   placeId: PropTypes.number.isRequired,

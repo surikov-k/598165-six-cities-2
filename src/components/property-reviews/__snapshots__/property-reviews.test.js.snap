@@ -70,9 +70,9 @@ exports[`<PropertyReviews/> renders correnctly 1`] = `
         </p>
         <time
           className="reviews__time"
-          dateTime="2019-04-24"
+          dateTime={1970-01-01T00:00:00.000Z}
         >
-          Thu Jan 01 1970
+          January 1970
         </time>
       </div>
     </li>
@@ -129,9 +129,9 @@ exports[`<PropertyReviews/> renders correnctly 1`] = `
         </p>
         <time
           className="reviews__time"
-          dateTime="2019-04-24"
+          dateTime={1970-01-01T00:00:00.000Z}
         >
-          Thu Jan 01 1970
+          January 1970
         </time>
       </div>
     </li>

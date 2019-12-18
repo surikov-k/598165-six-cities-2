@@ -2,7 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
-const Header = ({isAuthorizationRequired, user}) => {
+const Header = ({
+  isAuthorizationRequired,
+  user,
+  onFavoritesClick,
+}) => {
   const {email} = user;
   return (
     <header className="header">
@@ -13,7 +17,7 @@ const Header = ({isAuthorizationRequired, user}) => {
               className="header__logo-link header__logo-link--active"
               to="/"
             >
-              <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
+              <img className="header__logo" src="/img/logo.svg" alt="6 cities logo" width="81" height="41" />
             </Link>
           </div>
           <nav className="header__nav">
@@ -22,6 +26,7 @@ const Header = ({isAuthorizationRequired, user}) => {
                 <Link
                   className="header__nav-link header__nav-link--profile"
                   to={isAuthorizationRequired ? `/login` : `/favorites`}
+                  onClick={isAuthorizationRequired ? null : onFavoritesClick}
                 >
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
@@ -41,6 +46,7 @@ const Header = ({isAuthorizationRequired, user}) => {
 Header.propTypes = {
   user: PropTypes.object.isRequired,
   isAuthorizationRequired: PropTypes.bool.isRequired,
+  onFavoritesClick: PropTypes.func.isRequired,
 };
 
 export default Header;

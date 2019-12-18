@@ -3,12 +3,20 @@ import PropTypes from 'prop-types';
 import withFormData from '../../hocs/with-form-data/with-form-data.jsx';
 import Header from '../header/header.jsx';
 
-const SignIn = ({user, onLoginSubmit, formData, onChange, isAuthorizationRequired}) => {
+const SignIn = ({
+  user,
+  onLoginSubmit,
+  formData,
+  onChange,
+  isAuthorizationRequired,
+  onFavoritesClick,
+}) => {
   return (
     <div className="page page--gray page--login">
       <Header
         isAuthorizationRequired={isAuthorizationRequired}
         user={user}
+        onFavoritesClick={onFavoritesClick}
       />
       <main className="page__main page__main--login">
         <div className="page__login-container container">
@@ -65,6 +73,7 @@ SignIn.propTypes = {
   formData: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   onLoginSubmit: PropTypes.func.isRequired,
+  onFavoritesClick: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   isAuthorizationRequired: PropTypes.bool.isRequired,
 };

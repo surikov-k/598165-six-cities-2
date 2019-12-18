@@ -29,6 +29,7 @@ const MainPage = (props) => {
     leaflet,
     isAuthorizationRequired,
     onChangeFavorite,
+    onFavoritesClick
   } = props;
 
   return (
@@ -36,6 +37,7 @@ const MainPage = (props) => {
       <Header
         isAuthorizationRequired={isAuthorizationRequired}
         user={user}
+        onFavoritesClick={onFavoritesClick}
       />
       <main className={`page__main page__main--index
         ${places.length ? `` : `page__main--index-empty`}`}>
@@ -106,6 +108,7 @@ MainPage.propTypes = {
   onActivatePlace: PropTypes.func,
   onLoginSubmit: PropTypes.func,
   onChangeFavorite: PropTypes.func,
+  onFavoritesClick: PropTypes.func,
   isAuthorizationRequired: PropTypes.bool.isRequired,
 };
 

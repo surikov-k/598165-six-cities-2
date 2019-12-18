@@ -15,9 +15,9 @@ exports[`<PlaceCard/> renders correctly 1`] = `
       <img
         alt="Place image"
         className="place-card__image"
-        height="200"
+        height={200}
         src=""
-        width="260"
+        width={260}
       />
     </a>
   </div>
@@ -44,7 +44,7 @@ exports[`<PlaceCard/> renders correctly 1`] = `
       </div>
       <button
         className="place-card__bookmark-button
-             
+            
             button"
         onClick={[Function]}
         type="button"
@@ -87,14 +87,7 @@ exports[`<PlaceCard/> renders correctly 1`] = `
     </div>
     <h2
       className="place-card__name"
-    >
-      <a
-        href="#"
-        onClick={[Function]}
-      >
-        
-      </a>
-    </h2>
+    />
     <p
       className="place-card__type"
     >

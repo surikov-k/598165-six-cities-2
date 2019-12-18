@@ -94,6 +94,9 @@ describe(`<App/>`, () => {
         submitReview={() => {}}
         auth={() => {}}
         changeFavorite={() => {}}
+        favorites={[]}
+        getFavorites={() => {}}
+        onFavoritesClick={() => {}}
       />
       )
       .toJSON();

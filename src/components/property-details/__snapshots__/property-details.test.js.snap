@@ -58,9 +58,8 @@ exports[`<PropertyDetails/> renders correctly 1`] = `
               
             </h1>
             <button
-              className="property__bookmark-button
-                  
-                  button"
+              className="property__bookmark-button  button"
+              onClick={[Function]}
               type="button"
             >
               <svg
@@ -173,7 +172,7 @@ exports[`<PropertyDetails/> renders correctly 1`] = `
                   alt="Host avatar"
                   className="property__avatar user__avatar"
                   height="74"
-                  src=""
+                  src="/"
                   width="74"
                 />
               </div>

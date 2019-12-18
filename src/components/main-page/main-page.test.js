@@ -79,6 +79,7 @@ describe(`<MainPage/>`, () => {
         isAuthorizationRequired={false}
         sortingOrder={{id: 0, value: ``}}
         onChangeFavorite={() => {}}
+        onFavoritesClick={() => {}}
       />)
       .toJSON();
 

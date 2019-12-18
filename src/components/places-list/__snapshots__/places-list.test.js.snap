@@ -16,9 +16,9 @@ Array [
         <img
           alt="Place image"
           className="place-card__image"
-          height="200"
+          height={200}
           src=""
-          width="260"
+          width={260}
         />
       </a>
     </div>
@@ -45,7 +45,7 @@ Array [
         </div>
         <button
           className="place-card__bookmark-button
-             
+            
             button"
           onClick={[Function]}
           type="button"
@@ -88,14 +88,7 @@ Array [
       </div>
       <h2
         className="place-card__name"
-      >
-        <a
-          href="#"
-          onClick={[MockFunction]}
-        >
-          
-        </a>
-      </h2>
+      />
       <p
         className="place-card__type"
       >
@@ -117,9 +110,9 @@ Array [
         <img
           alt="Place image"
           className="place-card__image"
-          height="200"
+          height={200}
           src=""
-          width="260"
+          width={260}
         />
       </a>
     </div>
@@ -146,7 +139,7 @@ Array [
         </div>
         <button
           className="place-card__bookmark-button
-             
+            
             button"
           onClick={[Function]}
           type="button"
@@ -189,14 +182,7 @@ Array [
       </div>
       <h2
         className="place-card__name"
-      >
-        <a
-          href="#"
-          onClick={[MockFunction]}
-        >
-          
-        </a>
-      </h2>
+      />
       <p
         className="place-card__type"
       >

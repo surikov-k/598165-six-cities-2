@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
 
 import leaflet from 'leaflet';
 
@@ -11,13 +11,14 @@ import SignIn from '../sign-in/sign-in.jsx';
 
 import {ActionCreator, Operation} from '../../reducer/actions';
 import {selectSortedPlaces} from '../../reducer/selectors.js';
+import Favorities from '../favorites/favorites.jsx';
 
 const App = (props) => {
   const {
-    allPlaces, places, cities, reviews, user,
+    allPlaces, places, cities, reviews, user, favorites,
     currentCity, activePlace, sortingOrder, isAuthorizationRequired,
     changeCity, setSorting, setActivePlace, login, loadReviews, submitReview,
-    auth, isDataLoading, changeFavorite,
+    auth, isDataLoading, changeFavorite, getFavorites,
   } = props;
 
   if (isAuthorizationRequired) {
@@ -44,11 +45,12 @@ const App = (props) => {
                 onChangeCity={(city) => {
                   changeCity(city, allPlaces);
                 }}
-                onHeaderClick={() => {}}
+                onHeaderClick={loadReviews}
                 onLoginSubmit={login}
                 onChangeFavorite={changeFavorite}
                 leaflet={leaflet}
                 isAuthorizationRequired={isAuthorizationRequired}
+                onFavoritesClick={getFavorites}
               />;
             }}
           />
@@ -56,11 +58,13 @@ const App = (props) => {
             path="/login/"
             exact
             render={() => {
-              return <SignIn
+              return isAuthorizationRequired ? <SignIn
                 user={user}
                 onLoginSubmit={login}
                 isAuthorizationRequired={isAuthorizationRequired}
-              />;
+                onFavoritesClick={getFavorites}
+              /> :
+                <Redirect to="/" />;
             }}
           />
           <Route
@@ -69,14 +73,31 @@ const App = (props) => {
             render={({match: {params: {id}}}) => {
               return <PropertyDetails
                 onLoginSubmit={login}
-                placeId={id}
+                currentPlace={places[places.findIndex((it) => it.id === parseInt(id, 10))]}
                 places={places}
                 user={user}
                 reviews={reviews}
                 leaflet={leaflet}
-                onActivatePlace={() => {}}
+                activePlace={activePlace}
+                onActivatePlace={setActivePlace}
                 onloadReviews={loadReviews}
                 onReviewSubmit={submitReview}
+                onHeaderClick={loadReviews}
+                onChangeFavorite={changeFavorite}
+                isAuthorizationRequired={isAuthorizationRequired}
+                onFavoritesClick={getFavorites}
+              />;
+            }}
+          />
+          <Route
+            path="/favorites"
+            exact
+            render={() => {
+              return <Favorities
+                user={user}
+                isAuthorizationRequired={isAuthorizationRequired}
+                favoritePlaces={favorites}
+                onChangeFavorite={changeFavorite}
               />;
             }}
           />
@@ -86,6 +107,7 @@ const App = (props) => {
 
 App.propTypes = {
   allPlaces: PropTypes.array.isRequired,
+  favorites: PropTypes.array.isRequired,
   places: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
@@ -106,6 +128,7 @@ App.propTypes = {
   submitReview: PropTypes.func.isRequired,
   auth: PropTypes.func.isRequired,
   changeFavorite: PropTypes.func.isRequired,
+  getFavorites: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({data, app}, ownProps) => {
@@ -126,6 +149,7 @@ const mapDispatchToProps = (dispatch) => {
     auth: () => dispatch(Operation.auth()),
     loadReviews: (id) => dispatch(Operation.loadReviews(id)),
     submitReview: (id, review) => dispatch(Operation.submitReview(id, review)),
+    getFavorites: () => dispatch(Operation.getFavorites()),
     changeFavorite: (id, status) => dispatch(Operation.changeFavorite(id, status)),
   };
 };

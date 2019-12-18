@@ -11,7 +11,7 @@ const NEARBY_PLACES_TO_DISPLAY = 3;
 
 const PropertyDetails = (props) => {
   const {
-    placeId,
+    currentPlace,
     places,
     user,
     reviews,
@@ -19,6 +19,10 @@ const PropertyDetails = (props) => {
     onReviewSubmit,
     isAuthorizationRequired,
     onLoginSubmit,
+    onActivatePlace,
+    activePlace,
+    onChangeFavorite,
+    onFavoritesClick,
   } = props;
 
 
@@ -28,31 +32,31 @@ const PropertyDetails = (props) => {
     return Math.sqrt(Math.pow((xb - xa), 2) + Math.pow((yb - ya), 2));
   };
 
-  const currentPlace = places[placeId];
-
   const nearPlaces = places
     .filter((place) => place.id !== currentPlace.id)
-    .sort((a, b) => getDistance(b, currentPlace) - getDistance(a, currentPlace))
+    .sort((b, a) => getDistance(b, currentPlace) - getDistance(a, currentPlace))
     .slice(0, NEARBY_PLACES_TO_DISPLAY);
-
 
   return (
     isAuthorizationRequired ?
       <SignIn
         user={user}
         onLoginSubmit={onLoginSubmit}
+        isAuthorizationRequired={isAuthorizationRequired}
+        onFavoritesClick={onFavoritesClick}
       /> :
       <div className="page">
         <Header
           isAuthorizationRequired={isAuthorizationRequired}
           user={user}
+          onFavoritesClick={onFavoritesClick}
         />
         {isAuthorizationRequired ? <SignIn onLoginSubmit={onLoginSubmit} /> :
           <main className="page__main page__main--property">
             <section className="property">
               <div className="property__gallery-container container">
                 <div className="property__gallery">
-                  {currentPlace.images.map((image, i) => {
+                  {currentPlace.images.slice(0, 6).map((image, i) => {
                     return (
                       <div key={i} className="property__image-wrapper">
                         <img className="property__image" src={image} alt="Photo studio" />
@@ -74,10 +78,14 @@ const PropertyDetails = (props) => {
                       {currentPlace.name}
                     </h1>
                     <button
-                      className={`property__bookmark-button
-                  ${currentPlace.isBookmarked ? `property__bookmark-button--active` : ``}
-                  button`}
-                      type="button">
+                      className={`property__bookmark-button ${currentPlace.isBookmarked ? `property__bookmark-button--active` : ``} button`}
+                      type="button"
+                      onClick={() => {
+                        const status = currentPlace.isBookmarked ? 0 : 1;
+                        onChangeFavorite(currentPlace.id, status);
+                      }}
+
+                    >
                       <svg className="place-card__bookmark-icon" width="31" height="33">
                         <use xlinkHref="#icon-bookmark"></use>
                       </svg>
@@ -124,7 +132,12 @@ const PropertyDetails = (props) => {
                       <div className={`property__avatar-wrapper
                     ${currentPlace.hostIsSuper ? ` property__avatar-wrapper--pro ` : ``}
                     user__avatar-wrapper`}>
-                        <img className="property__avatar user__avatar" src={currentPlace.hostAvatar} width="74" height="74" alt="Host avatar" />
+                        <img
+                          className="property__avatar user__avatar"
+                          src={`/${currentPlace.hostAvatar}`}
+                          width="74"
+                          height="74"
+                          alt="Host avatar" />
                       </div>
                       <span className="property__user-name">
                         {currentPlace.hostName}
@@ -141,14 +154,15 @@ const PropertyDetails = (props) => {
                     isAuthorizationRequired={isAuthorizationRequired}
                     reviews={reviews}
                     onReviewSubmit={onReviewSubmit}
-                    placeId={placeId}
+                    placeId={currentPlace.id}
                   />
                 </div>
               </div>
               <div className="property__map map">
                 <Map
                   leaflet={leaflet}
-                  places={nearPlaces}
+                  places={[currentPlace, ...nearPlaces]}
+                  activePlace={activePlace}
                 />
               </div>
             </section>
@@ -159,8 +173,9 @@ const PropertyDetails = (props) => {
                   <PlacesList
                     places={nearPlaces}
                     onHeaderClick={() => {}}
-                    onActivatePlace={() => {}}
+                    onActivatePlace={onActivatePlace}
                     onSelect={() => {}}
+                    onChangeFavorite={onChangeFavorite}
                   />
                 </div>
               </section>
@@ -174,7 +189,7 @@ const PropertyDetails = (props) => {
 };
 
 PropertyDetails.propTypes = {
-  placeId: PropTypes.number.isRequired,
+  currentPlace: PropTypes.object.isRequired,
   places: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     images: PropTypes.arrayOf(PropTypes.string),
@@ -197,6 +212,10 @@ PropertyDetails.propTypes = {
   leaflet: PropTypes.object.isRequired,
   onReviewSubmit: PropTypes.func.isRequired,
   onLoginSubmit: PropTypes.func.isRequired,
+  onChangeFavorite: PropTypes.func.isRequired,
+  onActivatePlace: PropTypes.func.isRequired,
+  onFavoritesClick: PropTypes.func.isRequired,
+  activePlace: PropTypes.number.isRequired,
   isAuthorizationRequired: PropTypes.bool.isRequired,
 };
 

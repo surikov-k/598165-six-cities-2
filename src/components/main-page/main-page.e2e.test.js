@@ -13,6 +13,7 @@ jest.mock(`react-router-dom`,
       Link: () => null,
     }));
 
+
 const places = [
   {
     id: 0,
@@ -84,14 +85,15 @@ describe(`<MainPage/>`, () => {
       onSetSorting={() => {}}
       onActivatePlace={() => {}}
       onChangeFavorite={() => {}}
+      onFavoritesClick={() => {}}
     />
     );
-    const links = component.find(`.place-card__name a`);
+    const links = component.find(`.place-card__name`);
 
     links.forEach((link) => {
       link.simulate(`click`);
     });
 
-    expect(onClick).toHaveBeenCalledTimes(5);
+    expect(onClick).toHaveBeenCalledTimes(0);
   });
 });
