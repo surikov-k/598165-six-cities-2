@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import withFormData from '../../hocs/with-form-data/with-form-data.jsx';
 import Header from '../header/header.jsx';
 
-const SignIn = ({user, onLoginSubmit, formData, onChange}) => {
+const SignIn = ({user, onLoginSubmit, formData, onChange, isAuthorizationRequired}) => {
   return (
     <div className="page page--gray page--login">
       <Header
+        isAuthorizationRequired={isAuthorizationRequired}
         user={user}
       />
       <main className="page__main page__main--login">
@@ -65,6 +66,7 @@ SignIn.propTypes = {
   user: PropTypes.object.isRequired,
   onLoginSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
+  isAuthorizationRequired: PropTypes.bool.isRequired,
 };
 
 export {SignIn};

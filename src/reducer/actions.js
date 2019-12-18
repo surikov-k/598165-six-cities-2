@@ -2,6 +2,8 @@ const DEFAULT_CITY_INDEX = 0;
 
 const ActionType = {
   LOAD_DATA: `LOAD_DATA`,
+  UPDATE_DATA: `UPDATE_DATA`,
+  UPDATE_PLACES: `UPDATE_PLACES`,
   LOAD_REVIEWS: `LOAD_REVIEWS`,
   FILTER_CITY_PLACES: `FILTER_CITY_PLACES`,
   SET_AUTHORIZATION: `SET_AUTHORIZATION`,
@@ -12,6 +14,10 @@ const ActionType = {
   SET_SORTING: `SET_SORTING`,
   SORT_PLACES: `SORT_PLACES`,
   SET_ACTIVE_PLACE: `SET_ACTIVE_PLACE`,
+
+  GET_FAVORITES: `GET_FAVORITES`,
+  ADD_FAVORITE: `CHANGE_FAVORITE`,
+  REMOVE_FAVORITE: `CHANGE_FAVORITE`,
 };
 
 const ActionCreator = {
@@ -19,6 +25,20 @@ const ActionCreator = {
     return {
       type: ActionType.LOAD_DATA,
       payload: {places, cities},
+    };
+  },
+
+  updateData: (place) => {
+    return {
+      type: ActionType.UPDATE_DATA,
+      payload: place,
+    };
+  },
+
+  updatePlaces: (place) => {
+    return {
+      type: ActionType.UPDATE_PLACES,
+      payload: place,
     };
   },
 
@@ -77,6 +97,27 @@ const ActionCreator = {
       payload: reviews,
     };
   },
+
+  getFavortites: (places) => {
+    return {
+      type: ActionType.GET_FAVORITES,
+      payload: places,
+    };
+  },
+
+  addFavorite: (place) => {
+    return {
+      type: ActionType.ADD_FAVORITE,
+      payload: place
+    };
+  },
+
+  removeFavorite: (place) => {
+    return {
+      type: ActionType.REMOVE_FAVORITE,
+      payload: place,
+    };
+  },
 };
 
 const Operation = {
@@ -106,6 +147,17 @@ const Operation = {
       });
   },
 
+  auth: () => (dispatch, _, api) => {
+    return api.get(`/login`)
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch(ActionCreator.setAuthorization(false));
+          const userData = fromRawUser(response.data);
+          dispatch(ActionCreator.setUserData(userData));
+        }
+      });
+  },
+
   loadReviews: (id) => (dispatch, _, api) => {
     return api.get(`/comments/${id}`)
       .then((response) => {
@@ -122,6 +174,30 @@ const Operation = {
         if (response.status === 200) {
           const reviews = response.data.map((raw) => fromRawReview(raw));
           dispatch(ActionCreator.loadReviews(reviews));
+        }
+      });
+  },
+
+  getFavorites: () => (dispatch, _, api) => {
+    return api.get(`/favorite`)
+      .then((response) => {
+        const places = response.data.map((place) => fromRawPlace(place));
+        dispatch(ActionCreator.getFavorites(places));
+      });
+  },
+
+  changeFavorite: (id, status) => (dispatch, _, api) => {
+    return api.post(`/favorite/${id}/${status}`)
+      .then((response) => {
+        if (response.status === 200) {
+          const place = fromRawPlace(response.data);
+          dispatch(ActionCreator.updateData(place));
+          dispatch(ActionCreator.updatePlaces(place));
+          if (status === 1) {
+            dispatch(ActionCreator.addFavorite(place));
+          } else {
+            dispatch(ActionCreator.removeFavorite(id));
+          }
         }
       });
   },

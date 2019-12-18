@@ -8,6 +8,11 @@ import mockLeaflet from '../../mocks/mock-leaflet';
 
 Enzyme.configure({adapter: new Adapter()});
 
+jest.mock(`react-router-dom`,
+    () => ({
+      Link: () => null,
+    }));
+
 const places = [
   {
     id: 0,
@@ -78,6 +83,7 @@ describe(`<MainPage/>`, () => {
       sortingOrder={{id: 0, value: ``}}
       onSetSorting={() => {}}
       onActivatePlace={() => {}}
+      onChangeFavorite={() => {}}
     />
     );
     const links = component.find(`.place-card__name a`);

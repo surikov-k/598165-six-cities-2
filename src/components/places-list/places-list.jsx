@@ -8,6 +8,7 @@ const PlacesList = (props) => {
     onActivatePlace,
     onHeaderClick,
     onSelect,
+    onChangeFavorite,
   } = props;
   return (
     <Fragment>
@@ -18,6 +19,7 @@ const PlacesList = (props) => {
           onActivatePlace={onActivatePlace}
           onHeaderClick={onHeaderClick}
           onSelect={onSelect}
+          onChangeFavorite={onChangeFavorite}
         />;
       })}
     </Fragment>
@@ -37,6 +39,7 @@ PlacesList.propTypes = {
   })).isRequired,
   onHeaderClick: PropTypes.func.isRequired,
   onActivatePlace: PropTypes.func,
+  onChangeFavorite: PropTypes.func,
   onSelect: PropTypes.func,
 };
 

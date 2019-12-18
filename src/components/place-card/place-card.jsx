@@ -7,6 +7,7 @@ const PlaceCard = (props) => {
     onHeaderClick,
     onActivatePlace,
     onSelect,
+    onChangeFavorite,
   } = props;
 
   return (
@@ -17,7 +18,7 @@ const PlaceCard = (props) => {
         onSelect(place.id);
       }}
       onMouseLeave={() => {
-        onActivatePlace(null);
+        onActivatePlace(-1);
         onSelect(place.id);
       }}
     >
@@ -42,9 +43,14 @@ const PlaceCard = (props) => {
           </div>
           <button
             className={`place-card__bookmark-button
-            ${place.isPremium ? ` place-card__bookmark-button--active ` : ` `}
+            ${place.isBookmarked ? ` place-card__bookmark-button--active ` : ` `}
             button`}
-            type="button">
+            type="button"
+            onClick = {() => {
+              const status = place.isBookmarked ? 0 : 1;
+              onChangeFavorite(place.id, status);
+            }}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -80,6 +86,7 @@ PlaceCard.propTypes = {
   onHeaderClick: PropTypes.func.isRequired,
   onActivatePlace: PropTypes.func,
   onSelect: PropTypes.func.isRequired,
+  onChangeFavorite: PropTypes.func.isRequired,
 };
 
 export default PlaceCard;

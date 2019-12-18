@@ -8,7 +8,7 @@ const getSortingOrder = (app) => {
   return app.sortingOrder;
 };
 
-export const selectSortedOffers = createSelector(
+export const selectSortedPlaces = createSelector(
     [getCityPlaces, getSortingOrder],
     (places, order) => {
       switch (order.value) {

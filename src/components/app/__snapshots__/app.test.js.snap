@@ -18,6 +18,8 @@ exports[`<App/> renders correctly 1`] = `
         >
           <a
             className="header__logo-link header__logo-link--active"
+            href="/"
+            onClick={[Function]}
           >
             <img
               alt="6 cities logo"
@@ -39,7 +41,8 @@ exports[`<App/> renders correctly 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="#"
+                href="/favorites"
+                onClick={[Function]}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
@@ -47,7 +50,7 @@ exports[`<App/> renders correctly 1`] = `
                 <span
                   className="header__user-name user__name"
                 >
-                  Sign In
+                  
                 </span>
               </a>
             </li>
@@ -209,6 +212,7 @@ exports[`<App/> renders correctly 1`] = `
                     className="place-card__bookmark-button
              
             button"
+                    onClick={[Function]}
                     type="button"
                   >
                     <svg
@@ -309,6 +313,7 @@ exports[`<App/> renders correctly 1`] = `
                     className="place-card__bookmark-button
              
             button"
+                    onClick={[Function]}
                     type="button"
                   >
                     <svg
@@ -409,6 +414,7 @@ exports[`<App/> renders correctly 1`] = `
                     className="place-card__bookmark-button
              
             button"
+                    onClick={[Function]}
                     type="button"
                   >
                     <svg
@@ -509,6 +515,7 @@ exports[`<App/> renders correctly 1`] = `
                     className="place-card__bookmark-button
              
             button"
+                    onClick={[Function]}
                     type="button"
                   >
                     <svg
@@ -609,6 +616,7 @@ exports[`<App/> renders correctly 1`] = `
                     className="place-card__bookmark-button
              
             button"
+                    onClick={[Function]}
                     type="button"
                   >
                     <svg
