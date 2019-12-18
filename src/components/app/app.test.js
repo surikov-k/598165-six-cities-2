@@ -76,6 +76,8 @@ describe(`<App/>`, () => {
         isDataLoading={false}
         currentCity={``}
         cities={[]}
+        reviews={[]}
+        activePlace={0}
         changeCity={() => {}}
         sortingOrder={{id: 0, value: ``}}
         setSorting={() => {}}
@@ -86,6 +88,12 @@ describe(`<App/>`, () => {
         onHeaderClick={() => {}}
         onActivatePlace={() => {}}
         leaflet={mockLeaflet}
+        setActivePlace={() => {}}
+        login={() => {}}
+        loadReviews={() => {}}
+        submitReview={() => {}}
+        auth={() => {}}
+        changeFavorite={() => {}}
       />
       )
       .toJSON();

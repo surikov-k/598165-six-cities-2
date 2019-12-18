@@ -4,6 +4,11 @@ import renderer from 'react-test-renderer';
 import mockLeaflet from '../../mocks/mock-leaflet';
 import PropertyDetails from './property-details.jsx';
 
+jest.mock(`react-router-dom`,
+    () => ({
+      Link: () => null,
+    }));
+
 const places = [
   {
     id: 0,

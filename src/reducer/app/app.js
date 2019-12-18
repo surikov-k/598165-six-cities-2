@@ -4,8 +4,8 @@ import {ActionType} from '../actions';
 const initialState = {
   currentCity: ``,
   places: [],
-  reviews: undefined,
-  activePlace: null,
+  reviews: [],
+  activePlace: -1,
   sortingOrder: sortingOptions[0],
 };
 
@@ -27,6 +27,13 @@ const reducer = (state = initialState, action) => {
 
     case ActionType.LOAD_REVIEWS:
       return Object.assign({}, state, {reviews: action.payload});
+
+    case ActionType.UPDATE_PLACES:
+      const placeId = state.places
+        .findIndex((place) => place.id === action.payload.id);
+      const updatedPlaces = state.places.slice();
+      updatedPlaces[placeId] = action.payload;
+      return Object.assign({}, state, {places: updatedPlaces});
   }
   return state;
 };

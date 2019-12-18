@@ -15,19 +15,7 @@ exports[`<SignIn/> should render correnctly 1`] = `
       >
         <div
           className="header__left"
-        >
-          <a
-            className="header__logo-link header__logo-link--active"
-          >
-            <img
-              alt="6 cities logo"
-              className="header__logo"
-              height="41"
-              src="img/logo.svg"
-              width="81"
-            />
-          </a>
-        </div>
+        />
         <nav
           className="header__nav"
         >
@@ -36,21 +24,7 @@ exports[`<SignIn/> should render correnctly 1`] = `
           >
             <li
               className="header__nav-item user"
-            >
-              <a
-                className="header__nav-link header__nav-link--profile"
-                href="#"
-              >
-                <div
-                  className="header__avatar-wrapper user__avatar-wrapper"
-                />
-                <span
-                  className="header__user-name user__name"
-                >
-                  Sign In
-                </span>
-              </a>
-            </li>
+            />
           </ul>
         </nav>
       </div>

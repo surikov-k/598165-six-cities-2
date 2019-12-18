@@ -4,7 +4,7 @@ const initialState = {
   isDataLoading: true,
   cities: [],
   allPlaces: [],
-  reviews: [],
+  favorites: [],
   isAuthorizationRequired: true,
   user: {
     id: null,
@@ -27,10 +27,27 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {isAuthorizationRequired: action.payload});
 
     case ActionType.SET_USER_DATA:
-      return Object.assign({}, state, {user: action.payload});
+      return Object.assign({}, state, Object.assign(state.user, action.payload));
 
     case ActionType.SET_LOADING:
       return Object.assign({}, state, {isDataLoading: action.payload});
+
+    case ActionType.ADD_FAVORITE:
+      return Object.assign({}, state,
+          {favorites: [...state.favorites, action.payload]});
+
+    case ActionType.REMOVE_FAVORITE:
+      const newFavs = state.favorites.slice();
+      const indexToDelete = state.favorites
+        .findIndex((place) => place.id === action.payload);
+      return Object.assign({}, state, {favorites: newFavs.splice(indexToDelete)});
+
+    case ActionType.UPDATE_DATA:
+      const placeId = state.allPlaces
+        .findIndex((place) => place.id === action.payload.id);
+      const updatedPlaces = state.allPlaces.slice();
+      updatedPlaces[placeId] = action.payload;
+      return Object.assign({}, state, {allPlaces: updatedPlaces});
   }
   return state;
 };

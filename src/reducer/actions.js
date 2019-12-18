@@ -2,6 +2,8 @@ const DEFAULT_CITY_INDEX = 0;
 
 const ActionType = {
   LOAD_DATA: `LOAD_DATA`,
+  UPDATE_DATA: `UPDATE_DATA`,
+  UPDATE_PLACES: `UPDATE_PLACES`,
   LOAD_REVIEWS: `LOAD_REVIEWS`,
   FILTER_CITY_PLACES: `FILTER_CITY_PLACES`,
   SET_AUTHORIZATION: `SET_AUTHORIZATION`,
@@ -10,7 +12,12 @@ const ActionType = {
 
   CHANGE_CITY: `CHANGE_CITY`,
   SET_SORTING: `SET_SORTING`,
+  SORT_PLACES: `SORT_PLACES`,
   SET_ACTIVE_PLACE: `SET_ACTIVE_PLACE`,
+
+  GET_FAVORITES: `GET_FAVORITES`,
+  ADD_FAVORITE: `CHANGE_FAVORITE`,
+  REMOVE_FAVORITE: `CHANGE_FAVORITE`,
 };
 
 const ActionCreator = {
@@ -21,52 +28,94 @@ const ActionCreator = {
     };
   },
 
+  updateData: (place) => {
+    return {
+      type: ActionType.UPDATE_DATA,
+      payload: place,
+    };
+  },
+
+  updatePlaces: (place) => {
+    return {
+      type: ActionType.UPDATE_PLACES,
+      payload: place,
+    };
+  },
+
   filterCityPlaces: (city, places) => {
     return {
       type: ActionType.FILTER_CITY_PLACES,
       payload: filterCityPlaces(city, places),
     };
   },
+
   setAuthorization: (value) => {
     return {
       type: ActionType.SET_AUTHORIZATION,
       payload: value,
     };
   },
+
   setUserData: (data) => {
     return {
       type: ActionType.SET_USER_DATA,
       payload: data,
     };
   },
+
   setLoading: (value) => {
     return {
       type: ActionType.SET_LOADING,
       payload: value,
     };
   },
+
   changeCity: (city) => {
     return {
       type: ActionType.CHANGE_CITY,
       payload: city,
     };
   },
+
   setSorting: (option) => {
     return {
       type: ActionType.SET_SORTING,
       payload: option,
     };
   },
+
   setActivePlace: (id) => {
     return {
       type: ActionType.SET_ACTIVE_PLACE,
       payload: id
     };
   },
+
   loadReviews: (reviews) => {
     return {
       type: ActionType.LOAD_REVIEWS,
       payload: reviews,
+    };
+  },
+
+  getFavortites: (places) => {
+    return {
+      type: ActionType.GET_FAVORITES,
+      payload: places,
+    };
+  },
+
+  addFavorite: (place) => {
+    return {
+      type: ActionType.ADD_FAVORITE,
+      payload: place
+    };
+  },
+
+  removeFavorite: (place) => {
+    return {
+      type: ActionType.REMOVE_FAVORITE,
+      payload: place,
     };
   },
 };
@@ -98,6 +147,17 @@ const Operation = {
       });
   },
 
+  auth: () => (dispatch, _, api) => {
+    return api.get(`/login`)
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch(ActionCreator.setAuthorization(false));
+          const userData = fromRawUser(response.data);
+          dispatch(ActionCreator.setUserData(userData));
+        }
+      });
+  },
+
   loadReviews: (id) => (dispatch, _, api) => {
     return api.get(`/comments/${id}`)
       .then((response) => {
@@ -114,6 +174,30 @@ const Operation = {
         if (response.status === 200) {
           const reviews = response.data.map((raw) => fromRawReview(raw));
           dispatch(ActionCreator.loadReviews(reviews));
+        }
+      });
+  },
+
+  getFavorites: () => (dispatch, _, api) => {
+    return api.get(`/favorite`)
+      .then((response) => {
+        const places = response.data.map((place) => fromRawPlace(place));
+        dispatch(ActionCreator.getFavorites(places));
+      });
+  },
+
+  changeFavorite: (id, status) => (dispatch, _, api) => {
+    return api.post(`/favorite/${id}/${status}`)
+      .then((response) => {
+        if (response.status === 200) {
+          const place = fromRawPlace(response.data);
+          dispatch(ActionCreator.updateData(place));
+          dispatch(ActionCreator.updatePlaces(place));
+          if (status === 1) {
+            dispatch(ActionCreator.addFavorite(place));
+          } else {
+            dispatch(ActionCreator.removeFavorite(id));
+          }
         }
       });
   },
@@ -182,24 +266,24 @@ const getCitiesList = (places) => {
   return [...new Set(list)];
 };
 
-export const sortPlaces = (order, places) => {
-  let result = places;
+// export const sortPlaces = (order, places) => {
+//   let result = places;
 
-  switch (order.value) {
-    case `Popular`:
-      break;
+//   switch (order.value) {
+//     case `Popular`:
+//       break;
 
-    case `Price: low to high`:
-      return result.sort((a, b) => a.price - b.price);
+//     case `Price: low to high`:
+//       return result.sort((a, b) => a.price - b.price);
 
-    case `Price: high to low`:
-      return result.sort((a, b) => b.price - a.price);
+//     case `Price: high to low`:
+//       return result.sort((a, b) => b.price - a.price);
 
-    case `Top rated first`:
-      return result.sort((a, b) => b.rating - a.rating);
-  }
-  return result;
-};
+//     case `Top rated first`:
+//       return result.sort((a, b) => b.rating - a.rating);
+//   }
+//   return result;
+// };
 
 export {
   ActionType,

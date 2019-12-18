@@ -1,5 +1,4 @@
 import React from 'react';
-// import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
@@ -9,8 +8,8 @@ import Sorting from '../sorting/sorting.jsx';
 
 import Map from '../map/map.jsx';
 import MainEmpty from '../main-empty/main-empty.jsx';
-import SignIn from '../sign-in/sign-in.jsx';
 import Header from '../header/header.jsx';
+
 
 const PlacesListWrapped = withActiveItem(PlacesList);
 const CitiesTabsWrapped = withActiveItem(CitiesTabs);
@@ -23,72 +22,69 @@ const MainPage = (props) => {
     currentCity,
     activePlace,
     sortingOrder,
-    isAuthorizationRequired,
     onSetSorting,
     onHeaderClick,
     onChangeCity,
     onActivatePlace,
-    onLoginSubmit,
     leaflet,
+    isAuthorizationRequired,
+    onChangeFavorite,
   } = props;
 
   return (
-    isAuthorizationRequired ?
-      <SignIn
+    <div className="page page--gray page--main">
+      <Header
+        isAuthorizationRequired={isAuthorizationRequired}
         user={user}
-        onLoginSubmit={onLoginSubmit}
-      /> :
-      <div className="page page--gray page--main">
-        <Header
-          user={user}
-        />
-        <main className={`page__main page__main--index
+      />
+      <main className={`page__main page__main--index
         ${places.length ? `` : `page__main--index-empty`}`}>
-          <h1 className="visually-hidden">Cities</h1>
-          <CitiesTabsWrapped
-            active={currentCity}
-            cities={cities}
-            onChangeCity={onChangeCity}
-          />
-          {
-            !places.length ? <MainEmpty currentCity={currentCity} /> :
-              <div className="cities">
-                <div className="cities__places-container container">
-                  <section className="cities__places places">
-                    <h2 className="visually-hidden">Places</h2>
-                    <b className="places__found">{places.length} places to stay in {currentCity}</b>
+        <h1 className="visually-hidden">Cities</h1>
+        <CitiesTabsWrapped
+          active={currentCity}
+          cities={cities}
+          onChangeCity={onChangeCity}
+        />
+        {
+          !places.length ? <MainEmpty currentCity={currentCity} /> :
+            <div className="cities">
+              <div className="cities__places-container container">
+                <section className="cities__places places">
+                  <h2 className="visually-hidden">Places</h2>
+                  <b className="places__found">{places.length} places to stay in {currentCity}</b>
 
-                    <Sorting
-                      sortingOrder={sortingOrder}
-                      currentCity={currentCity}
-                      onSetSorting={onSetSorting}
+                  <Sorting
+                    sortingOrder={sortingOrder}
+                    currentCity={currentCity}
+                    onSetSorting={onSetSorting}
+                  />
+
+                  <div
+                    className="cities__places-list places__list tabs__content">
+
+                    <PlacesListWrapped
+                      places={places}
+                      onHeaderClick={onHeaderClick}
+                      onActivatePlace={onActivatePlace}
+                      onChangeFavorite={onChangeFavorite}
                     />
-
-                    <div
-                      className="cities__places-list places__list tabs__content">
-
-                      <PlacesListWrapped
-                        places={places}
-                        onHeaderClick={onHeaderClick}
-                        onActivatePlace={onActivatePlace}
-                      />
-                    </div>
-                  </section >
-                  <div className="cities__right-section">
-                    <section className="cities__map map" style={{height: 100 + `%`}}>
-                      <Map
-                        places={places}
-                        leaflet={leaflet}
-                        currentCity={currentCity}
-                        activePlace={activePlace}
-                      />
-                    </section>
                   </div>
-                </div >
+                </section >
+                <div className="cities__right-section">
+                  <section className="cities__map map" style={{height: 100 + `%`}}>
+                    <Map
+                      places={places}
+                      leaflet={leaflet}
+                      currentCity={currentCity}
+                      activePlace={activePlace}
+                    />
+                  </section>
+                </div>
               </div >
-          }
-        </main >
-      </div >
+            </div >
+        }
+      </main >
+    </div >
   );
 };
 
@@ -103,13 +99,14 @@ MainPage.propTypes = {
   leaflet: PropTypes.object.isRequired,
   currentCity: PropTypes.string.isRequired,
   activePlace: PropTypes.number,
-  isAuthorizationRequired: PropTypes.bool.isRequired,
   cities: PropTypes.array.isRequired,
   onChangeCity: PropTypes.func.isRequired,
   sortingOrder: PropTypes.object.isRequired,
   onSetSorting: PropTypes.func.isRequired,
   onActivatePlace: PropTypes.func,
   onLoginSubmit: PropTypes.func,
+  onChangeFavorite: PropTypes.func,
+  isAuthorizationRequired: PropTypes.bool.isRequired,
 };
 
 export default MainPage;

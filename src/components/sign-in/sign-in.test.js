@@ -3,6 +3,11 @@ import renderer from 'react-test-renderer';
 
 import {SignIn} from './sign-in.jsx';
 
+jest.mock(`react-router-dom`,
+    () => ({
+      Link: () => null,
+    }));
+
 const user = {
   id: 0,
   email: ``
@@ -16,6 +21,7 @@ describe(`<SignIn/>`, () => {
         onLoginSubmit={() => {}}
         formData={{}}
         onChange={() => {}}
+        isAuthorizationRequired={false}
       />)
       .toJSON();
     expect(component).toMatchSnapshot();

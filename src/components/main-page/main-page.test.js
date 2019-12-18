@@ -4,6 +4,11 @@ import renderer from 'react-test-renderer';
 import MainPage from './main-page.jsx';
 import mockLeaflet from '../../mocks/mock-leaflet';
 
+jest.mock(`react-router-dom`,
+    () => ({
+      Link: () => null,
+    }));
+
 const places = [
   {
     id: 0,
@@ -73,6 +78,7 @@ describe(`<MainPage/>`, () => {
         onActivatePlace={() => {}}
         isAuthorizationRequired={false}
         sortingOrder={{id: 0, value: ``}}
+        onChangeFavorite={() => {}}
       />)
       .toJSON();
 

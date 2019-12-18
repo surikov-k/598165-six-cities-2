@@ -37,6 +37,7 @@ describe(`<PlacesList/>`, () => {
         onActivatePlace={mouseOverHandler}
         onHeaderClick={headerClickHandler}
         onSelect={() => {}}
+        onChangeFavorite={() => {}}
       />)
       .toJSON();
 

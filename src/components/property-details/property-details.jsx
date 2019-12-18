@@ -43,7 +43,10 @@ const PropertyDetails = (props) => {
         onLoginSubmit={onLoginSubmit}
       /> :
       <div className="page">
-        <Header user={user} />
+        <Header
+          isAuthorizationRequired={isAuthorizationRequired}
+          user={user}
+        />
         {isAuthorizationRequired ? <SignIn onLoginSubmit={onLoginSubmit} /> :
           <main className="page__main page__main--property">
             <section className="property">

@@ -26,6 +26,7 @@ describe(`<PlaceCard/>`, () => {
       onHeaderClick={() => {}}
       onActivatePlace={mouseEnterHandler}
       onSelect={() => {}}
+      onChangeFavorite={() => {}}
     />);
     component.simulate(`mouseenter`);
     expect(mouseEnterHandler).toHaveBeenCalledWith(0);

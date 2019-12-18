@@ -23,6 +23,7 @@ describe(`<PlaceCard/>`, () => {
         onHeaderClick={() => {}}
         onActivatePlace={() => {}}
         onSelect={() => {}}
+        onChangeFavorite={() => {}}
       />)
       .toJSON();
 
